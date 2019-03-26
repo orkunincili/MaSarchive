@@ -1,0 +1,145 @@
+body{
+
+  background-image:url("/static/movies_bg.jpg");
+  -webkit-box-shadow: inset 0px 0px 600px 600px rgba(0,0,0,0.7);
+  -moz-box-shadow: inset 0px 0px 600px 600px rgba(0,0,0,0.7);
+  box-shadow: inset 0px 0px 600px 600px rgba(0,0,0,0.7);
+
+  margin:0px;
+
+}
+
+
+.movie_index_container{
+  font-family:monospace;
+  float: left;
+  width: 30%;
+
+
+  margin-left:20px;
+  height:300px;
+  border:solid grey;
+  border-width:0px 5px 0px 5px;
+  border-radius:25px;
+  margin-bottom:100px;
+  background-color:rgba(0,0,0,0.8);
+
+}
+
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+.movie_index_content{
+
+}
+.movie_name{
+  margin-top:0px;
+  font-family:monospace;
+  color:#eccc68;
+  text-align:center;
+  font-size:25px;
+  border: solid #eccc68;
+  border-width:0px 0px 2px 0px;
+  border-radius:25px;
+}
+.movie_IMDb{
+  font-family:monospace;
+  color:#EA2027;
+  text-align:center;
+  font-size:20px;
+  text-decoration:none;
+
+
+
+
+
+}
+
+.movie_date{
+
+  margin:30%;
+  color:#eccc68;
+
+
+}
+
+.movie_note_title{
+
+padding-left:5px;
+border: solid #eccc68;
+border-width:1px 0px 0px 0px;
+border-radius:15px;
+
+
+color:#eccc68;}
+
+.movie_note{
+padding:0px;
+padding-left:5px;
+
+
+color:#eccc68;}
+
+
+
+.page_title{
+   text-align:center;
+   color:white;
+   font-family:monospace;
+   font-size:50px;
+   margin-left:50px;
+   margin-right:50px;
+   border-radius:25px 0 25px 0;
+   -webkit-box-shadow: inset 0px 0px 300px 200px rgba(0,0,0,0.8);
+   -moz-box-shadow: inset 0px 0px 300px 200px rgba(0,0,0,0.8);
+   box-shadow: inset 0px 0px 300px 200px rgba(0,0,0,0.8);
+}
+.page_title a{
+  text-decoration:none;
+  color:green;
+}
+.opt_link{
+
+
+  margin-top:30px;
+  text-align:center;
+
+
+}
+.movie_update{
+   border:1px solid grey;
+   font-family:monospace;
+   text-decoration:none;
+   color:#eccc68;
+   float:left;
+   width:40%;
+   padding:15px;
+   border-width:0px 2px 0px 0px;
+   border-radius:20px;
+}
+.movie_view{
+   border:1px solid grey;
+   font-family:monospace;
+   text-decoration:none;
+   color:#eccc68;
+   float:right;
+   width:40%;
+   padding:15px;
+   border-width:0px 0px 0px 2px;
+   border-radius:25px;
+
+
+
+}
+.movie_update:hover{
+  background-color: rgba(255, 255, 255, 0.5);
+  color: white;
+}
+.movie_view:hover{
+  background-color: rgba(255, 255, 255, 0.5);
+  color: white;
+}
+

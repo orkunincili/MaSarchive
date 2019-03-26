@@ -1,0 +1,53 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Book Form</title>
+    <link rel="stylesheet" href="{% static 'css/book_form.css'%}">
+    <link rel="stylesheet" href="{% static 'css/home.css'%}">
+
+</head>
+<body>
+{%for user in user%}
+    <div class="header">
+      <a  class="logo">{{user.user_name}}</a>
+      <div class="header-right">
+        <a class="active" href="http://127.0.0.1:8000">Home</a>
+      </div>
+      <div class="header-mid"></div>
+    </div>
+{%endfor%}
+
+       <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+
+             <div class="book_form_container">
+
+                 <h3 class="book_name">Book name{{form.book_name}}</h3>
+
+
+                 <h3 class="book_author">Author name{{form.author_name}}</h3>
+                 <p class="book_read">Did you read?{{form.read}}</p>
+                 <p class="book_read">Add Book(If you want){{form.book}}</p>
+                 <p class="book_read">Add your favorites?{{form.favorite_book}}</p>
+
+
+
+
+
+
+                  <p class="book_note_title">Notlar:</p>
+                  <p class="book_note">{{form.notes}}</p>
+             </div>
+             <input  id="book_form_button" type="submit" value="Kitabı Ekle">
+       </form>
+
+</body>
+</html>
+
+
+
+
+
+

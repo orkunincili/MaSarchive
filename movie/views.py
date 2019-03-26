@@ -1,0 +1,111 @@
+from django.shortcuts import render,HttpResponse,get_object_or_404,HttpResponseRedirect,redirect,Http404
+from .models import Movie
+from home.models import User
+from .forms import MovieForm,add_multipleForm
+from django.contrib import messages
+import os,magic
+
+# Create your views here.
+def movie_index(request):
+    movies=Movie.objects.all()
+    user=User.objects.all()
+    movieW=[]
+    movieNW=[]
+    favorite_movies=[]
+
+    for i in movies:
+        if (i.favorite_movie=="F"):
+            favorite_movies.append(i)
+
+        elif(i.watch=="W"):
+            movieW.append(i)
+
+        else:
+            movieNW.append(i)
+
+    context={
+        "movieW":movieW,
+        "movieNW":movieNW,
+        "user":user,
+        "fav_movie":favorite_movies,
+        "movies":movies,
+    }
+
+    return render(request,"movies/movie_index.html",context)
+def movie_create(request):
+    form = MovieForm(request.POST or None)
+    user = User.objects.all()
+    if form.is_valid():
+        movie = form.save(commit=False)
+
+        movie.save()
+
+    context = {
+        'form': form,
+        'user': user,
+    }
+
+    return render(request, "movies/movies_form.html", context)
+
+
+
+
+
+
+
+def movie_update(request,id):
+    movie = Movie.objects.get(id=id)
+    user = User.objects.all()
+    form = MovieForm(request.POST or None, request.FILES or None, instance=movie)
+    if form.is_valid():
+        form.save()
+        messages.success(request, "Başarılı bir şekilde güncellediniz.")
+
+        return HttpResponseRedirect(movie.get_absolute_url())
+    context = {
+        'form': form,
+        'user': user,
+    }
+
+
+    return render(request, "movies/movies_form.html", context)
+def movie_detail(request,id):
+    movie=Movie.objects.get(id=id)
+    user = User.objects.all()
+
+    context={
+        "movieD":movie,
+        "user":user,
+    }
+
+    return render(request,"movies/movie_detail.html",context)
+
+
+def add_multiple_movie(request):
+
+    form = add_multipleForm(request.POST or None)
+    user=User.objects.all()
+    movie_list=[]
+    if form.is_valid():
+        path = form.save()
+
+
+        movie=os.listdir(path.path)
+
+        for i in movie:
+
+            m=magic.from_file(path.path+i,mime=True)
+            if m.startswith("video")==True:
+                movie_list.append(i)
+
+        for i in movie_list:
+          Movie.objects.create(movie_name=i)
+
+
+
+    context = {
+        'form': form,
+        'user':user,
+    }
+
+    return render(request, "movies/add_movie.html", context)

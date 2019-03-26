@@ -1,0 +1,48 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="{% static 'css/home.css'%}">
+</head>
+<body>
+{%if not setting%}
+  <h1 style="color:white;font-family:monospace">Hmmm!!!I think it looks a bit empty,doesn't it?
+      You need to make a small setting :)</h1>
+  <a style="text-decoration:none;color:red;"href="user_settings">Click</a>
+{%endif%}
+{%for setting in setting%}
+  <div class="header">
+  <a href="#default" class="logo">{{setting.user_name}}</a>
+  <div class="header-right">
+    <a class="active" href="#home">Home</a>
+    <a href="#contact">Contact</a>
+    <a href="/user_settings">Settings</a>
+  </div>
+</div>
+
+
+  <div class="cat" id="tv">
+
+         <h1 class="cat_h1">{{setting.tv_series}}</h1>
+
+  </div>
+  <a href="movie/movie_index">
+  <div class="cat" id="movies">
+         <h1 class=cat_h1>{{setting.movie}}</h1>
+         <h3 class="cat_h3">{{movies}} movie</h3>
+  </div>
+  </a>
+    <div class="cat" id="blog">
+          <h1 class="cat_h1">{{setting.blog}}</h1>
+    </div>
+  <a href="book/book_index">
+    <div class="cat" id="books">
+          <h1 class="cat_h1">{{setting.book}}</h1>
+          <h3 class="cat_h3">{{books}} book</h3>
+    </div>
+  </a>
+{%endfor%}
+</body>
+</html>

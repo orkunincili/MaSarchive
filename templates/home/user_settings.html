@@ -1,0 +1,49 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User Settings</title>
+    <link rel="stylesheet" href="{% static 'css/home.css'%}">
+</head>
+<body>
+       <form method="POST" enctype="multipart/form-data" >
+                    {% csrf_token %}
+                  <div class="header">
+                   <p>You can write your name,maybe?</p>
+                   <p class="logo"> {{ form.user_name }}</p>
+                  </div>
+
+
+                  <div class="cat" id="tv">
+                         <p class="example">For your tv series</p>
+                         <h1 class="cat_h1">{{ form.tv_series }}</h1>
+
+                  </div>
+
+                  <div class="cat" id="movie">
+                         <p  class="example">For your movies</p>
+                         <h1 class=cat_h1>  {{ form.movie}}</h1>
+
+                  </div>
+
+                    <div class="cat" id="blog">
+                          <p  class="example">For your writings</p>
+                          <h1 class="cat_h1">{{ form.blog}}</h1>
+                    </div>
+
+                    <div class="cat" id="book">
+                          <p  class="example">For your books</p>
+                          <h1 class="cat_h1">{{ form.book }}</h1>
+
+                    </div>
+
+
+
+
+
+                 <input id="user_setting_button" type="submit" value="Kaydet">
+         </form>
+</body>
+</html>
+

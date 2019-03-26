@@ -1,0 +1,30 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Multiple Book</title>
+    <link rel="stylesheet" href="{% static 'css/home.css'%}">
+
+</head>
+<body>
+{%for user in user%}
+    <div class="header">
+      <a href="#default" class="logo">{{user.user_name}}</a>
+      <div class="header-right">
+          <a class="active" href="http://127.0.0.1:8000">Home</a>
+          <a  href="/blog/movie_index">Movies</a>
+          <a  href="/blog/book_index">Books</a>
+      </div>
+    </div>
+{%endfor%}
+
+       <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+
+             <input type="submit" value="Add Books">
+         </form>
+
+</body>
+</html>

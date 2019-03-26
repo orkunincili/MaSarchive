@@ -1,0 +1,141 @@
+
+body{
+  background-color:#808e9b;
+
+}
+
+.book_form_container{
+  font-family:monospace;
+  width:40%;
+  margin:auto;
+  height:550px;
+  border:solid grey;
+  border-width:0px 20px 0px 0px;
+  border-radius:25px 0px 0px 25px;
+  background-color:#2c2c54;
+  -webkit-box-shadow: 200px -33px 5px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: 200px -33px 5px 0px rgba(0,0,0,0.75);
+  box-shadow: 200px -33px 5px 0px rgba(0,0,0,0.75);
+  margin-top:100px;
+
+
+}
+
+.book_name{
+
+  margin-top:30px;
+  font-family:monospace;
+  color:#eccc68;
+  text-align:center;
+  font-size:25px;
+
+
+
+}
+
+.book_author{
+
+  margin-top:30px;
+  font-family:monospace;
+  color:#eccc68;
+  text-align:center;
+  font-size:25px;
+
+
+
+}
+.book_date{
+
+
+  margin-left:50%;
+  color:#eccc68;
+
+}
+
+.book_note_title{
+
+padding-left:5px;
+border: solid #eccc68;
+border-width:1px 0px 0px 0px;
+
+color:#eccc68;
+}
+
+.book_note{
+padding:0px;
+padding-left:5px;
+color:#eccc68;
+}
+
+
+#id_book_name{
+  opacity:0.6;
+  border-radius:25px;
+  font-size:20px;
+  height:20px;
+  text-align:center;
+
+}
+#id_author_name{
+  opacity:0.6;
+
+
+  border-radius:25px;
+  font-size:20px;
+  height:20px;
+  text-align:center;
+
+}
+#id_notes{
+  opacity:0.6;
+  width:95%;
+  margin:auto;
+
+
+  border-radius:25px;
+  font-size:20px;
+  height:190px;
+  text-align:center;
+
+}
+
+#book_form_button{
+
+   background-color:#2c2c54;
+   width:30%;
+   height:50px;
+   border:2px solid black;
+   font_family:monospace;
+   border-radius:20px;
+   color:#eccc68;
+
+}
+
+.book_read{
+
+  font-family:monospace;
+  color:#eccc68;
+  margin-left:10px;
+  font-size:25px;
+  border-radius:20px;
+}
+
+#id_read{
+   border-radius:15px;
+   opacity:0.6;
+}
+#id_favorite_book{
+   border-radius:15px;
+   opacity:0.6;
+
+}
+
+#id_book{
+border-radius:15px;
+   opacity:0.6;
+}
+
+
+
+
+

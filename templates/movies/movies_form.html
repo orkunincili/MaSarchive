@@ -1,0 +1,45 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Movie Form</title>
+     <link rel="stylesheet" href="{% static 'css/movie_form.css'%}">
+     <link rel="stylesheet" href="{% static 'css/home.css'%}">
+
+</head>
+<body>
+{%for user in user%}
+    <div class="header">
+      <a href="#default" class="logo">{{user.user_name}}</a>
+      <div class="header-right">
+          <a class="active" href="http://127.0.0.1:8000">Home</a>
+          <a  href="/movie/movie_index">Movies</a>
+          <a  href="/book/book_index">Books</a>
+      </div>
+    </div>
+{%endfor%}
+
+       <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+
+            <div class="movie_index_container">
+
+           <div class="movie_index_content" >
+               <h3 id="movie_name">Movie Name:{{form.movie_name}}</h3>
+               <h4 id="movie_watch">Did you watch?{{form.watch}}</h4>
+               <h5 id="movie_add">Add Movie(If you want):{{form.movie}}</h5>
+               <h6 id="movie_favorite">Add favorites?{{form.favorite_movie}}</h6>
+               <p class="movie_note_title">Notlar:</p>
+               <p class="movie_note">{{form.notes}}</p>
+           </div>
+
+       </div>
+
+             <input  id="movie_form_button" type="submit" value="Add Movie">
+         </form>
+
+</body>
+</html>
+
+

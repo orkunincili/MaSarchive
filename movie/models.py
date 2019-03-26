@@ -1,0 +1,37 @@
+from django.db import models
+from django.urls import reverse
+
+# Create your models here.
+class Movie(models.Model):
+    WATCH = (
+        ('W', 'Watch'),
+        ('nW', 'NotWatch'),
+
+    )
+    FAVORITE = (
+
+        ('F', 'Add My Favorites'),
+
+    )
+    movie_name = models.CharField(max_length=50)
+    notes = models.TextField()
+    date = models.DateTimeField(auto_now_add=True)
+    watch = models.CharField(max_length=2, choices=WATCH, default='W')
+    movie = models.FileField(null=True, blank=True)
+    favorite_movie = models.CharField(max_length=1, choices=FAVORITE, blank=True)
+
+    def get_absolute_url(self):
+        return reverse('movie:movie_detail', kwargs={'id': self.id})
+
+    def get_create_url(self):
+        return reverse('movie:movie_create', kwargs={'id': self.id})
+
+    def get_update_url(self):
+        return reverse('movie:movie_update', kwargs={'id': self.id})
+
+    class Meta:
+        ordering = ['favorite_movie', 'date', 'id']
+
+
+class add_multiple(models.Model):
+    path = models.CharField(max_length=100)

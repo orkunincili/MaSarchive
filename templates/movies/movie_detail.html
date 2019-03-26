@@ -1,0 +1,47 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+     <link rel="stylesheet" href="{% static 'css/movie_detail.css'%}">
+     <link rel="stylesheet" href="{% static 'css/home.css'%}">
+</head>
+<body>
+{%for user in user%}
+    <div class="header">
+      <a href="#default" class="logo">{{user.user_name}}</a>
+      <div class="header-right">
+        <a class="active" href="http://127.0.0.1:8000">Home</a>
+      </div>
+    </div>
+{%endfor%}
+           {%if movieD.favorite_movie%}
+              <div class="if_favorite_img">
+                  <img  src="{%static 'star.svg'%}">
+              </div>
+
+            {%endif%}
+
+          <div id="movie_detail_container">
+
+              <div class="fav"></div>
+
+              <div id="movie_detail_header">
+                  <p id="movie_name">{{movieD.movie_name}}</p><hr>
+
+                  <div id="movie_date">Added {{movieD.date|timesince}} ago</div>
+                  <div id="movie_watch">[{{movieD.watch}}]</div>
+
+              </div>
+              <div id="movie_detail_content">
+                  <p style="color:white; font-size:25px; text-align:center;">Notes</p>
+                  <p id="movie_notes">{{movieD.notes}}</p>
+
+              <div id="update_link">
+                  <a href="{{ movieD.get_update_url }}">Update</a>
+              </div>
+          </div>
+
+</body>
+</html>

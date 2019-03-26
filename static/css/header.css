@@ -1,0 +1,70 @@
+body {
+  margin: 0;
+
+}
+#header{
+
+
+    height:150px;
+    border:solid white;
+    border-width:0px 0px 1px 0px;
+    overflow: hidden;
+
+
+    background-color:#1e272e;
+    border-radius:0px 0px 100px 100px;
+
+
+}
+
+#name{
+
+  float: left;
+  color: white;
+  padding: 50px;
+  text-decoration: none;
+  line-height: 25px;
+  font-size: 25px;
+  font-weight: bold;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+#contact{
+
+  float:right;
+  padding:30px;
+
+
+}
+#header_footer{
+
+   padding: 90px;
+
+  }
+
+#header_a{
+   font-size:20px;
+   text-align:center;
+   color:white;
+}
+
+nav{
+   border:solid white;
+   border-width:0px 0px 1px 0px;
+   width:50%;
+   margin:auto;
+
+   border-radius:0px 0px 200px 200px;
+   padding-top:5px;
+   background-color:#1e272e;
+   height:50px;
+
+}
+.nav_a{
+  margin:12px;
+  padding-left:120px;
+  font-size:25px;
+  color:white;
+
+
+}
