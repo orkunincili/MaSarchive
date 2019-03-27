@@ -12,6 +12,7 @@ class MovieForm(forms.ModelForm):
             "watch",
             "movie",
             "favorite_movie",
+            "movie_path",
         ]
 
 
