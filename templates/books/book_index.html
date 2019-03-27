@@ -1,6 +1,6 @@
 {%load static%}
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/html">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>My Books</title>
@@ -15,12 +15,18 @@
 {%for user in user%}
     <div class="header">
       <a href="#default" class="logo">{{user.user_name}}</a>
-      <div class="header-right">
+        <div class="header-right">
           <a class="active" href="http://127.0.0.1:8000">Home</a>
           <a  href="/movie/movie_index">Movies</a>
           <a  href="/book/book_index">Books</a>
+        </div>
 
-      </div>
+        <p id="movies_count">
+             Toplam Kitap:{{books.count}} |
+             Favorilerin:{{len_fav}} |
+             Okudukların:{{len_R}} |
+             Okumak İstediğin:{{len_nR}}
+        </p>
     </div>
 {%endfor%}
     <p class="page_title">MY FAVORITE BOOKS</p>
