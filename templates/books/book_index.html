@@ -29,6 +29,14 @@
         </p>
     </div>
 {%endfor%}
+    <div class="add_book">
+        <small><a href="/book/book_create">Add Book</small></a>
+
+    </div>
+     <div class="add_multiple_book">
+
+        <small><a href="/book/add_book">Add Multiple Book</small></a>
+    </div>
     <p class="page_title">MY FAVORITE BOOKS</p>
     <div class="row">
      {%for i in fav_book%}
@@ -56,7 +64,7 @@
       {%endfor%}
     </div>
 
-     <p class="page_title">BOOKS I WANT TO READ|<small><a href="/book/book_create">+Add Book</small></a></p>
+     <p class="page_title">BOOKS I WANT TO READ</p>
      <div class="row">
      {%for i in bookNR%}
 
