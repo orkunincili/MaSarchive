@@ -19,6 +19,12 @@ class Movie(models.Model):
     watch = models.CharField(max_length=2, choices=WATCH, default='W')
     movie = models.FileField(null=True, blank=True)
     favorite_movie = models.CharField(max_length=1, choices=FAVORITE, blank=True)
+    movie_path=models.CharField(max_length=100,blank=True)
+
+
+    def __str__(self):
+
+        return self.movie_name
 
     def get_absolute_url(self):
         return reverse('movie:movie_detail', kwargs={'id': self.id})
