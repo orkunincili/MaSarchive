@@ -20,15 +20,18 @@ def book_index(request):
            bookR.append(i)
        else:
            bookNR.append(i)
+   len_fav=len(favorite_books)
+   len_R=len(bookR)
+   len_nR=len(bookNR)
    context={
-
+       "books":books,
        "bookR":bookR,
-
        "bookNR":bookNR,
-
        "user": user,
-
        "fav_book":favorite_books,
+       "len_fav":len_fav,
+       "len_R":len_R,
+       "len_nR":len_nR
     }
    return render(request,"books/book_index.html",context)
 def book_create(request):
@@ -75,22 +78,29 @@ def book_detail(request,id):
 def add_multiple_book(request):
     form = add_multipleForm(request.POST or None,request.FILES or None)
     user = User.objects.all()
-    books_list = []
+    file_list=[]
+    book_list = []
     if form.is_valid():
-        books_path = form.save()
+        path = form.save()
 
-        books = os.listdir(books_path.path)
+        for root, dirs, files in os.walk(path.path):
+            for file in files:
+                file_list.append(os.sep.join([root, file]))
 
-        for i in books:
+        for i in range(len(file_list)):
 
-            b = magic.from_file(books_path.path + i, mime=True)
-            if b.lower().endswith(('/pdf', '/epub+zip')) == True:
-                books_list.append(i)
+            mime_type = magic.from_file(file_list[i], mime=True)
 
-        for i in books_list:
+            if mime_type.lower().endswith(('/pdf', '/epub+zip')) == True:
+                book_list.append(file_list[i].split("/")[-1])
+
+        for i in book_list:
 
 
-            Book.objects.create(book_name=i,book_path="file://"+books_path.path+i)
+            Book.objects.create(book_name=i,book_path="file://"+path.path+"/"+i)
+
+
+
 
 
 
