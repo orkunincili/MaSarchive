@@ -3,7 +3,7 @@ from .models import Movie
 from home.models import User
 from .forms import MovieForm,add_multipleForm
 from django.contrib import messages
-import os,magic
+import os,magic,webbrowser
 
 # Create your views here.
 def movie_index(request):
@@ -22,13 +22,18 @@ def movie_index(request):
 
         else:
             movieNW.append(i)
-
+    len_fav=len(favorite_movies)
+    len_W=len(movieW)
+    len_nW=len(movieNW)
     context={
         "movieW":movieW,
         "movieNW":movieNW,
         "user":user,
         "fav_movie":favorite_movies,
         "movies":movies,
+        "len_fav":len_fav,
+        "len_W":len_W,
+        "len_nW":len_nW,
     }
 
     return render(request,"movies/movie_index.html",context)
@@ -72,10 +77,12 @@ def movie_update(request,id):
 def movie_detail(request,id):
     movie=Movie.objects.get(id=id)
     user = User.objects.all()
+    webbrowser.open(movie.movie_path)
 
     context={
         "movieD":movie,
         "user":user,
+
     }
 
     return render(request,"movies/movie_detail.html",context)
@@ -85,21 +92,27 @@ def add_multiple_movie(request):
 
     form = add_multipleForm(request.POST or None)
     user=User.objects.all()
+    file_list=[]
     movie_list=[]
     if form.is_valid():
         path = form.save()
 
 
-        movie=os.listdir(path.path)
+        for root,dirs,files in os.walk(path.path):
+            for file in files:
+                file_list.append(os.sep.join([root,file]))
 
-        for i in movie:
+        for i in range(len(file_list)):
 
-            m=magic.from_file(path.path+i,mime=True)
-            if m.startswith("video")==True:
-                movie_list.append(i)
+            mime_type=magic.from_file(file_list[i],mime=True)
+
+            if mime_type.startswith("video")==True:
+                movie_list.append(file_list[i].split("/")[-1])
 
         for i in movie_list:
-          Movie.objects.create(movie_name=i)
+
+
+          Movie.objects.create(movie_name=i,movie_path="file://"+path.path+"/"+i)
 
 
 
