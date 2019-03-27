@@ -19,6 +19,7 @@ class UserForm(forms.ModelForm):
             'blog',
             'book',
 
+
         ]
 
 
