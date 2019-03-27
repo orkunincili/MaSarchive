@@ -4,13 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <title>User Settings</title>
-    <link rel="stylesheet" href="{% static 'css/home.css'%}">
+    <link rel="stylesheet" href="{% static 'css/user_settings.css'%}">
 </head>
 <body>
        <form method="POST" enctype="multipart/form-data" >
                     {% csrf_token %}
                   <div class="header">
-                   <p>You can write your name,maybe?</p>
+                   <p>Header name</p>
                    <p class="logo"> {{ form.user_name }}</p>
                   </div>
 
@@ -46,7 +46,7 @@
 
 
 
-                 <input id="user_setting_button" type="submit" value="Kaydet">
+                 <input id="user_setting_button" type="submit" value="Save">
          </form>
 </body>
 </html>

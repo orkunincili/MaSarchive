@@ -131,5 +131,41 @@ color:#eccc68;}
   color: white;
 }
 
+.add_book{
+ border:1px solid white;
+ float:left;
+ width:40%;
+ text-align:center;
+ font-size:50px;
+ color:white;
+ font-family:monospace;
+ background-color: rgba(0,0,0,0.8);
+
+
+
+
+
+
+}
+.add_multiple_book{
+ border:1px solid white;
+
+ float:right;
+ width:40%;
+ text-align:center;
+ font-size:50px;
+ background-color: rgba(0,0,0,0.8);
+
+
+
+}
+a{
+ text-decoration:none;
+ color:white;
+ font-family:monospace;
+}
+
+
+
 
 

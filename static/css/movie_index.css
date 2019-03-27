@@ -90,6 +90,7 @@ color:#eccc68;}
    color:white;
    font-family:monospace;
    font-size:50px;
+   margin-top:100px;
    margin-left:50px;
    margin-right:50px;
    border-radius:25px 0 25px 0;
@@ -141,5 +142,38 @@ color:#eccc68;}
 .movie_view:hover{
   background-color: rgba(255, 255, 255, 0.5);
   color: white;
+}
+.add_movie{
+ border:1px solid white;
+ float:left;
+ width:40%;
+ text-align:center;
+ font-size:50px;
+ color:white;
+ font-family:monospace;
+ background-color: rgba(0,0,0,0.8);
+
+
+
+
+
+
+}
+.add_multiple_movie{
+ border:1px solid white;
+
+ float:right;
+ width:40%;
+ text-align:center;
+ font-size:50px;
+ background-color: rgba(0,0,0,0.8);
+
+
+
+}
+a{
+ text-decoration:none;
+ color:white;
+ font-family:monospace;
 }
 
