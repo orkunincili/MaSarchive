@@ -3,7 +3,11 @@ from django.urls import reverse
 
 
 # Create your models here.
+class Diary(models.Model):
 
+      title=models.CharField(max_length=50)
+      content=models.TextField()
+      date=models.DateTimeField()
 
 
 
