@@ -19,8 +19,14 @@
           <a class="active" href="http://127.0.0.1:8000">Home</a>
           <a  href="/movie/movie_index">Movies</a>
           <a  href="/book/book_index">Books</a>
-          <p>{{movies.count}}</p>
+
       </div>
+         <p id="movies_count">
+             Toplam Film:{{movies.count}} |
+             Favorilerin:{{len_fav}} |
+             İzlediğin:{{len_W}} |
+             İzlemek İstediğin:{{len_nW}}
+         </p>
     </div>
 {%endfor%}
     <div class="page_title">
