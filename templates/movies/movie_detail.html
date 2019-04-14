@@ -3,43 +3,70 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title></title>
+    <title>{{movieD.movie_name}}</title>
      <link rel="stylesheet" href="{% static 'css/movie_detail.css'%}">
      <link rel="stylesheet" href="{% static 'css/home.css'%}">
 </head>
+   <style>
+       body{
+          background-image:url({{movieD.poster}});
+
+          background-size: 1300px;
+       }
+
+   </style>
 <body>
 {%for user in user%}
-    <div class="header">
+    <div class="header" style=" opacity:0.6;">
       <a href="#default" class="logo">{{user.user_name}}</a>
       <div class="header-right">
         <a class="active" href="http://127.0.0.1:8000">Home</a>
       </div>
     </div>
 {%endfor%}
-           {%if movieD.favorite_movie%}
-              <div class="if_favorite_img">
-                  <img  src="{%static 'star.svg'%}">
-              </div>
 
-            {%endif%}
+
 
           <div id="movie_detail_container">
+               <img id="movie_poster" src="{{movieD.poster}}"/>
 
 
 
               <div id="movie_detail_header">
+                  {%if movieD.favorite_movie%}
+                     <div class="if_favorite_img">
+                       <img  src="{%static 'star.svg'%}" style="width:50px;height:50px;"/>
+                     </div>
+
+            {%endif%}
                   <p id="movie_name">{{movieD.movie_name}}</p><hr>
 
+
+
                   <div id="movie_date">Added {{movieD.date|timesince}} ago</div>
-                  <div id="movie_watch">[{{movieD.watch}}]</div>
+                  <div id="movie_category">{{movieD.category}}</div>
+                  <p style="color:white;">{{duration}}</p>
+                  <p class="movie_summary">{{summary}}
+                      <a class="movie_imdb_page" href="{{movieD.imdb_page}}">See more...</a>
+                  </p>
+
+                  <div class="button">
+                      <form method="POST">
+                           {% csrf_token %}
+                          <input class="play_button" type="submit" name="Play" value="Play"/>
+                      </form>
+                  </div>
+
+
 
               </div>
               <div id="movie_detail_content">
                   <p style="color:white; font-size:25px; text-align:center;">Notes</p>
+
                   <p id="movie_notes">{{movieD.notes}}</p>
 
               <div id="update_link">
-                  <a href="{{ movieD.get_update_url }}">Update</a>
+                  <a href="{{ movieD.get_update_url }}">Edit</a>
               </div>
 
           </div>

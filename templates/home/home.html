@@ -3,44 +3,46 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Home</title>
     <link rel="stylesheet" href="{% static 'css/home.css'%}">
 </head>
 <body>
 {%if not setting%}
-  <h1 style="color:white;font-family:monospace">I think it looks empty!
-      You need to make a small setting :)</h1>
-  <a style="text-decoration:none;color:red;"href="user_settings">Click</a>
+  <div class="if_not_setting">
+     <h1>It looks empty!You need to make a small setting.Click the white box.</h1>
+  </div>
+  <a href="user_settings">
+    <div id="if_not_setting_click"></div>
+  </a>
 {%endif%}
 {%for setting in setting%}
   <div class="header">
-  <a href="#default" class="logo">{{setting.user_name}}</a>
+  <a class="logo">{{setting.user_name}}</a>
   <div class="header-right">
-    <a class="active" href="#home">Home</a>
-    <a href="#contact">Contact</a>
-    <a href="/user_settings">Settings</a>
+
+      <a href="/user_settings"><img src="/static/settings.svg" style="width:30px;"></a>
   </div>
 </div>
 
 
   <div class="cat" id="tv">
 
-         <h1 class="cat_h1">{{setting.tv_series}}</h1>
+         <h1 class="cat_h1" id="series_name">{{setting.tv_series}}</h1>
 
   </div>
   <a href="movie/movie_index">
   <div class="cat" id="movies">
-         <h1 class=cat_h1>{{setting.movie}}</h1>
+         <h1 class=cat_h1 id="movie_name">{{setting.movie}}</h1>
          <h3 class="cat_h3">{{movies}} movie</h3>
   </div>
   </a>
     <div class="cat" id="blog">
-          <h1 class="cat_h1">{{setting.blog}}</h1>
+          <h1 class="cat_h1" id="blog_name">{{setting.blog}}</h1>
     </div>
   <a href="book/book_index">
     <div class="cat" id="books">
-          <h1 class="cat_h1">{{setting.book}}</h1>
-          <h3 class="cat_h3">{{books}} book</h3>
+          <h1 class="cat_h1" id="book_name">{{setting.book}}</h1>
+          <h3 class="cat_h3" >{{books}} book</h3>
     </div>
   </a>
 {%endfor%}
