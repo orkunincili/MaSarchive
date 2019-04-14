@@ -1,8 +1,47 @@
 body{
 
-  background-color:#202020
+  background-color:#202020;
+  margin:0px;
 
 
+
+
+}
+.if_not_setting h1 {
+  color: #fff;
+  font-family: monospace;
+  overflow: hidden; /* Ensures the content is not revealed until the animation */
+  white-space: nowrap; /* Keeps the content on a single line */
+
+  letter-spacing: .15em; /* Adjust as needed */
+  animation:
+    typing 3s steps(300, end);
+
+}
+
+#if_not_setting_click{
+
+ position: relative;
+ -webkit-animation: click 5s;  /* Safari 4.0 - 8.0 */
+ animation: click 5s ;
+ width:20%;
+ margin-left:500px;
+ margin-top:100px;
+ height:50px;
+ background-color:white;
+
+
+
+}
+@keyframes click{
+
+  from{left:-1000px;}
+  to{left:200px;}
+
+}
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
 }
 .cat{
 
@@ -35,11 +74,15 @@ body{
 .cat_h1{
 
     color:white;
-    margin-top:0px;
+    margin:0px;
     text-align:center;
-    padding-top:200px;
     font-size:50px;
     font-family:monospace;
+    position: relative;
+    -webkit-animation: mymove 1s;  /* Safari 4.0 - 8.0 */
+    -webkit-animation-fill-mode: forwards; /* Safari 4.0 - 8.0 */
+    animation: mymove 2s;
+    animation-fill-mode: forwards;
 
 
 }
@@ -71,10 +114,14 @@ body{
   text-decoration: none;
   font-size: 18px;
   line-height: 25px;
-  border-radius: 4px;
+  position: relative;
+    -webkit-animation: headermove 2s;  /* Safari 4.0 - 8.0 */
+
+    animation: headermove 2s;
+
 }
 
-.header p.logo {
+.header a.logo {
   font-size: 25px;
   font-weight: bold;
   font-family:monospace
@@ -181,4 +228,28 @@ body{
    font-family:"Helvetica Neue", Helvetica, Sans-serif;
    text-align:center;
 }
+
+
+
+@keyframes mymove {
+  0%   {opacity:0}
+  25%  {opacity:0.25}
+  50%  {opacity:0.50}
+  75%  {opacity:0.75}
+  100% {opacity:1}
+  from {top: 0px;}
+  to {top: 200px;}
+}
+
+@keyframes headermove{
+   0%   {opacity:0}
+   25%  {opacity:0.25}
+   50%  {opacity:0.50}
+   75%  {opacity:0.75}
+   100% {opacity:1}
+   from{left:-100px;}
+   to{left:0.5px;}
+
+}
+
 

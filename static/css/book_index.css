@@ -81,6 +81,9 @@ color:#eccc68;}
    color:white;
    font-family:monospace;
    font-size:50px;
+   border:solid white;
+   border-width:0 0 3px 0;
+   border-radius:40px;
 }
 .page_title a{
   text-decoration:none;
@@ -163,6 +166,11 @@ a{
  text-decoration:none;
  color:white;
  font-family:monospace;
+}
+.if_not{
+   text-align:center;
+   color:white;
+
 }
 
 

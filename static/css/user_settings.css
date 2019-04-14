@@ -2,14 +2,13 @@
 body{
 
   background-color:#202020;
+  margin:0px;
 
 
 }
 .cat{
 
   border:solid #6c1609;
-
-
   border-width:0px 0px 5px 0px;
   height:500px;
   -moz-box-shadow: inset 0 0 200px 200px #171717;
@@ -112,7 +111,7 @@ body{
 
 #id_user_name{
    opacity:0.9;
-  background-color:black;
+  background-color:white;
   border:1px solid black;
   border-radius:25px;
   font-size:30px;
@@ -178,11 +177,9 @@ body{
   background-color:#202020;
   color:white;
   font-size:25px;
+  border:5px solid #6c1609;
+
 
 }
 
-#movies_count{
-   font-family:"Helvetica Neue", Helvetica, Sans-serif;
-   text-align:center;
-}
 

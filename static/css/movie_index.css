@@ -13,16 +13,15 @@ body{
 .movie_index_container{
   font-family:monospace;
   float: left;
-  width: 30%;
-
-
+  width: 40%;
   margin-left:20px;
-  height:300px;
+  height:325px;
   border:solid grey;
   border-width:0px 5px 0px 5px;
   border-radius:25px;
   margin-bottom:100px;
   background-color:rgba(0,0,0,0.8);
+  padding-bottom:12px;
 
 }
 
@@ -32,9 +31,7 @@ body{
   display: table;
   clear: both;
 }
-.movie_index_content{
 
-}
 .movie_name{
   margin-top:0px;
   font-family:monospace;
@@ -45,26 +42,45 @@ body{
   border-width:0px 0px 2px 0px;
   border-radius:25px;
 }
-.movie_IMDb{
+#imdb_page{
   font-family:monospace;
   color:#EA2027;
   text-align:center;
-  font-size:20px;
+  font-size:15px;
   text-decoration:none;
+  margin-left:20px;
 
 
 
+
+
+
+}
+.movie_index_content{
+
+ margin-top:10px;
+ width:60%;
+ float:right;
 
 
 }
 
 .movie_date{
 
-  margin:30%;
+  margin-left:10px;
+  width:50%;
   color:#eccc68;
 
 
+
 }
+.movie_rate{
+ color:#eccc68;
+ font-size:15px;
+ float:left;
+
+}
+
 
 .movie_note_title{
 
@@ -74,14 +90,16 @@ border-width:1px 0px 0px 0px;
 border-radius:15px;
 
 
-color:#eccc68;}
+color:#eccc68;
+}
 
 .movie_note{
 padding:0px;
 padding-left:5px;
 
 
-color:#eccc68;}
+color:#eccc68;
+}
 
 
 
@@ -90,13 +108,15 @@ color:#eccc68;}
    color:white;
    font-family:monospace;
    font-size:50px;
-   margin-top:100px;
+   margin-top:200px;
    margin-left:50px;
    margin-right:50px;
    border-radius:25px 0 25px 0;
    -webkit-box-shadow: inset 0px 0px 300px 200px rgba(0,0,0,0.8);
    -moz-box-shadow: inset 0px 0px 300px 200px rgba(0,0,0,0.8);
    box-shadow: inset 0px 0px 300px 200px rgba(0,0,0,0.8);
+
+
 }
 .page_title a{
   text-decoration:none;
@@ -105,7 +125,6 @@ color:#eccc68;}
 .opt_link{
 
 
-  margin-top:30px;
   text-align:center;
 
 
@@ -116,7 +135,7 @@ color:#eccc68;}
    text-decoration:none;
    color:#eccc68;
    float:left;
-   width:40%;
+   width:35%;
    padding:15px;
    border-width:0px 2px 0px 0px;
    border-radius:20px;
@@ -127,7 +146,7 @@ color:#eccc68;}
    text-decoration:none;
    color:#eccc68;
    float:right;
-   width:40%;
+   width:35%;
    padding:15px;
    border-width:0px 0px 0px 2px;
    border-radius:25px;
@@ -144,36 +163,98 @@ color:#eccc68;}
   color: white;
 }
 .add_movie{
- border:1px solid white;
+
  float:left;
- width:40%;
+ width:50%;
  text-align:center;
  font-size:50px;
- color:white;
- font-family:monospace;
- background-color: rgba(0,0,0,0.8);
 
 
 
-
-
-
+ animation:move 1s;
 }
 .add_multiple_movie{
- border:1px solid white;
+
 
  float:right;
- width:40%;
+ width:50%;
  text-align:center;
  font-size:50px;
- background-color: rgba(0,0,0,0.8);
 
 
+ animation:move 1s;
 
 }
-a{
+@keyframes move{
+   0%   {opacity:0}
+   25%  {opacity:0.25}
+   50%  {opacity:0.50}
+   75%  {opacity:0.75}
+   100% {opacity:1}
+
+}
+#movie_poster{
+
+   margin-left:10px;
+   margin-top:15px;
+   border-radius:15px;
+   border:1px solid white;
+
+}
+
+.add{
+ border:solid white;
+ border-width:0 0 1px 0;
  text-decoration:none;
  color:white;
  font-family:monospace;
 }
+
+.if_not{
+   text-align:center;
+   color:white;
+   font-size:70px;
+
+}
+.rate_img{
+   width:10px;
+}
+.pagination{
+   border:1px solid white;
+   border-radius:25px;
+   width:50%;
+   height:60px;
+   margin:auto;
+   font-family:monospace;
+   font-size:50px;
+   color:white;
+   text-align:center;
+}
+.pagination_button{
+  color:white;
+  text-decoration:none;
+}
+#movie_category{
+
+  font-family:monospace;
+  color:#eccc68;
+
+}
+.button{
+
+ width:30%;
+}
+.play_button{
+   border:1px solid #009432;
+   width:100%;
+   background-color:#009432;
+   color:white;
+   height:40px;
+   font-size:30px;
+   border-radius:20px;
+}
+
+
+
+
 
