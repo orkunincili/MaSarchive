@@ -10,6 +10,12 @@ urlpatterns = [
     url(r'^(?P<id>\d+)/$', movie_detail,name="movie_detail"),
     url(r'^(?P<id>\d+)/movie_update/$', movie_update,name="movie_update"),
     url(r'^add_movie/$',add_multiple_movie),
+    url(r'^favorite_movies/$',favorite_movie),
+    url(r'^didnt_watch/$',didnt_watch),
+    url(r'^watched/$',watched),
+
+
+
 
 
 

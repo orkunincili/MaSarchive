@@ -1,49 +1,220 @@
-from django.shortcuts import render,HttpResponse,get_object_or_404,HttpResponseRedirect,redirect,Http404
+from django.shortcuts import render,HttpResponseRedirect
 from .models import Movie
 from home.models import User
 from .forms import MovieForm,add_multipleForm
-from django.contrib import messages
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 import os,magic,webbrowser
+from bs4 import BeautifulSoup
+import requests
+global process
+import subprocess
+
 
 # Create your views here.
+
 def movie_index(request):
-    movies=Movie.objects.all()
-    user=User.objects.all()
-    movieW=[]
-    movieNW=[]
-    favorite_movies=[]
+    movies = Movie.objects.all()
+    user = User.objects.all()
+    movieW = []
+    movieNW = []
+    favorite_movies = []
 
     for i in movies:
-        if (i.favorite_movie=="F"):
+        if (i.favorite_movie == "F"):
             favorite_movies.append(i)
 
-        elif(i.watch=="W"):
+        elif (i.watch == "W"):
             movieW.append(i)
 
         else:
             movieNW.append(i)
-    len_fav=len(favorite_movies)
-    len_W=len(movieW)
-    len_nW=len(movieNW)
-    context={
-        "movieW":movieW,
-        "movieNW":movieNW,
-        "user":user,
-        "fav_movie":favorite_movies,
-        "movies":movies,
-        "len_fav":len_fav,
-        "len_W":len_W,
-        "len_nW":len_nW,
+
+    len_fav = len(favorite_movies)
+    len_W = len(movieW)
+    len_nW = len(movieNW)
+    context = {
+        "movieW": movieW,
+        "movieNW": movieNW,
+        "user": user,
+        "fav_movie": favorite_movies,
+        "movies": movies,
+        "len_fav": len_fav,
+        "len_W": len_W,
+        "len_nW": len_nW,
+
     }
 
-    return render(request,"movies/movie_index.html",context)
+    return render(request, "movies/movie_index.html", context)
+def favorite_movie(request):
+    movies = Movie.objects.all()
+    movieW=Movie.objects.filter(watch="W")
+    movieNW=Movie.objects.filter(watch="nW")
+    user = User.objects.all()
+    favorite_movies=Movie.objects.filter(favorite_movie='F')
+    paginator = Paginator(favorite_movies, 21)
+
+    page = request.GET.get('page')
+    try:
+        movieF = paginator.page(page)
+    except PageNotAnInteger:
+
+        movieF = paginator.page(1)
+    except EmptyPage:
+
+        movieF = paginator.page(paginator.num_pages)
+
+    len_fav = len(favorite_movies)
+    len_W = len(movieW)
+    len_nW = len(movieNW)
+    context = {
+        "movieW": movieW,
+        "movieNW": movieNW,
+        "user": user,
+        "fav_movie": movieF,
+        "movies": movies,
+        "len_fav": len_fav,
+        "len_W": len_W,
+        "len_nW": len_nW,
+
+    }
+
+    return render(request, "movies/fav_movies.html", context)
+def didnt_watch(request):
+    movies = Movie.objects.all()
+    user = User.objects.all()
+    movieW = Movie.objects.filter(watch="W")
+    movieNW = Movie.objects.filter(watch="nW")
+    favorite_movies=Movie.objects.filter(favorite_movie='F')
+
+    paginator = Paginator(movieNW, 21)
+
+    page = request.GET.get('page')
+    try:
+        movienW = paginator.page(page)
+    except PageNotAnInteger:
+
+        movienW = paginator.page(1)
+    except EmptyPage:
+
+        movienW = paginator.page(paginator.num_pages)
+
+
+    len_fav = len(favorite_movies)
+    len_W = len(movieW)
+    len_nW = len(movieNW)
+    context = {
+        "movieW": movieW,
+        "movieNW": movienW,
+        "user": user,
+        "fav_movie": favorite_movies,
+        "movies": movies,
+        "len_fav": len_fav,
+        "len_W": len_W,
+        "len_nW": len_nW,
+
+    }
+
+
+    return render(request, "movies/didnt_watch.html", context)
+
+def watched(request):
+    movies = Movie.objects.all()
+    user = User.objects.all()
+    favorite_movies=Movie.objects.filter(favorite_movie="F")
+    movieNW = Movie.objects.filter(watch="nW")
+    movieW = Movie.objects.filter(watch="W")
+    paginator = Paginator(movieW, 22)
+    page = request.GET.get('page')
+
+    if request.POST.get('Play') == 'Play':
+
+        subprocess.call(['vlc', movie.movie_path])
+
+
+
+
+
+
+
+    try:
+        movies_w = paginator.page(page)
+    except PageNotAnInteger:
+
+        movies_w = paginator.page(1)
+    except EmptyPage:
+
+        movies_w = paginator.page(paginator.num_pages)
+
+
+
+
+
+
+    len_fav = len(favorite_movies)
+    len_W = len(movieW)
+    len_nW = len(movieNW)
+    context = {
+
+        "movieW": movies_w,
+        "movieNW": movieNW,
+        "user": user,
+        "fav_movie": favorite_movies,
+        "movies": movies,
+        "len_fav": len_fav,
+        "len_W": len_W,
+        "len_nW": len_nW,
+
+
+    }
+
+    return render(request, "movies/watched.html", context)
+
+
 def movie_create(request):
     form = MovieForm(request.POST or None)
     user = User.objects.all()
-    if form.is_valid():
-        movie = form.save(commit=False)
 
-        movie.save()
+    if form.is_valid():
+            movie=form.save(commit=False)
+            base_url = 'http://www.imdb.com/find'
+            imdb = 'http://www.imdb.com'
+            params = dict(ref_="nv_sr_fn", q=movie.movie_name, s="tt")
+
+            r = requests.get(base_url, params=params)
+            source = BeautifulSoup(r.content, "lxml")
+            movie_list = source.find("ul", attrs={"class": "findTitleSubfilterList"}).find("a").get("href")
+            r = requests.get(imdb + movie_list)
+            source = BeautifulSoup(r.content, "lxml")
+            movie_page = source.find("td", attrs={"class": "result_text"}).find("a").get("href")
+            movie_detail = requests.get(imdb + movie_page)
+            source = BeautifulSoup(movie_detail.content, "lxml")
+            if source.find("h1", attrs={"class": ""}) == None:
+
+                movie_name = source.find("h1", attrs={"class": "long"}).text
+
+            else:
+                movie_name = source.find("h1", attrs={"class": ""}).text
+            movie_poster_url = source.find("div", attrs={"class": "poster"}).find("img").get("src")
+            new_poster_url = ""
+            movie_poster_url = movie_poster_url.split(".")
+            del movie_poster_url[-2]
+
+            for i in movie_poster_url:
+                new_poster_url += i
+                if movie_poster_url.index(i) < len(movie_poster_url) - 1:
+                    new_poster_url += "."
+
+            movie_poster = new_poster_url
+
+            movie_rate = source.find("span", attrs={"itemprop": "ratingValue"}).text
+            movie_category = source.find("div", attrs={"class": "subtext"}).find_all("a")
+            movie_category_text = []
+            del movie_category[-1]
+            for category in movie_category:
+                movie_category_text.append(category.text)
+
+            Movie.objects.create(movie_name=movie_name, poster=movie_poster,watch=movie.watch,imdb_page=imdb+movie_page,
+                                 movie_rate=movie_rate, category=movie_category_text)
 
     context = {
         'form': form,
@@ -64,7 +235,7 @@ def movie_update(request,id):
     form = MovieForm(request.POST or None, request.FILES or None, instance=movie)
     if form.is_valid():
         form.save()
-        messages.success(request, "Başarılı bir şekilde güncellediniz.")
+
 
         return HttpResponseRedirect(movie.get_absolute_url())
     context = {
@@ -74,14 +245,30 @@ def movie_update(request,id):
 
 
     return render(request, "movies/movies_form.html", context)
+
 def movie_detail(request,id):
     movie=Movie.objects.get(id=id)
     user = User.objects.all()
-    webbrowser.open(movie.movie_path)
+    movie_url=movie.imdb_page
+    r=requests.get(movie_url)
+    source = BeautifulSoup(r.content, "lxml")
+    duration = source.find("time").text
+    summary = source.find("div",attrs={"class":"summary_text"}).text
+
+
+
+
+    if request.POST.get('Play') == 'Play':
+        subprocess.call(['vlc',movie.movie_path])
+
+
+
 
     context={
         "movieD":movie,
         "user":user,
+        "duration":duration,
+        "summary":summary,
 
     }
 
@@ -93,7 +280,8 @@ def add_multiple_movie(request):
     form = add_multipleForm(request.POST or None)
     user=User.objects.all()
     file_list=[]
-    movie_list=[]
+    movie_name_list=[]
+    movie_path_list=[]
     if form.is_valid():
         path = form.save()
 
@@ -107,12 +295,54 @@ def add_multiple_movie(request):
             mime_type=magic.from_file(file_list[i],mime=True)
 
             if mime_type.startswith("video")==True:
-                movie_list.append(file_list[i].split("/")[-1])
+                movie_name_list.append(file_list[i].split("/")[-1])
+                movie_path_list.append(file_list[i])
 
-        for i in movie_list:
+        for i in range(len(movie_path_list)):
+            path=movie_path_list[i]
+            movie_name_list[i]=movie_name_list[i].replace(".mp4","")
+            movie_name_list[i] = movie_name_list[i].replace(".mkv", "")
+            movie_name_list[i] = movie_name_list[i].replace(".avi", "")
 
+            base_url = 'http://www.imdb.com/find'
+            imdb = 'http://www.imdb.com'
+            params = dict(ref_="nv_sr_fn", q=movie_name_list[i], s="tt")
 
-          Movie.objects.create(movie_name=i,movie_path="file://"+path.path+"/"+i)
+            r = requests.get(base_url, params=params)
+            source = BeautifulSoup(r.content, "lxml")
+            movie_list = source.find("ul", attrs={"class": "findTitleSubfilterList"}).find("a").get("href")
+            r = requests.get(imdb + movie_list)
+            source = BeautifulSoup(r.content, "lxml")
+            movie_page = source.find("td", attrs={"class": "result_text"}).find("a").get("href")
+            movie_detail = requests.get(imdb + movie_page)
+            source = BeautifulSoup(movie_detail.content, "lxml")
+            if source.find("h1", attrs={"class": ""}) == None:
+
+                movie_name = source.find("h1", attrs={"class": "long"}).text
+
+            else:
+                movie_name = source.find("h1", attrs={"class": ""}).text
+            movie_poster_url = source.find("div", attrs={"class": "poster"}).find("img").get("src")
+            new_poster_url = ""
+            movie_poster_url = movie_poster_url.split(".")
+            del movie_poster_url[-2]
+
+            for i in movie_poster_url:
+                new_poster_url += i
+                if movie_poster_url.index(i) < len(movie_poster_url) - 1:
+                    new_poster_url += "."
+
+            movie_poster = new_poster_url
+
+            movie_rate = source.find("span", attrs={"itemprop": "ratingValue"}).text
+            movie_category = source.find("div", attrs={"class": "subtext"}).find_all("a")
+            movie_category_text = []
+            del movie_category[-1]
+            for category in movie_category:
+                movie_category_text.append(category.text)
+
+            Movie.objects.create(movie_name=movie_name, poster=movie_poster, imdb_page=imdb + movie_page,
+                                 movie_path=path, movie_rate=movie_rate, category=movie_category_text)
 
 
 

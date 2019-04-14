@@ -13,13 +13,20 @@ class Movie(models.Model):
         ('F', 'Add My Favorites'),
 
     )
+
+
+
     movie_name = models.CharField(max_length=50)
-    notes = models.TextField()
+    notes = models.TextField(blank=True)
     date = models.DateTimeField(auto_now_add=True)
     watch = models.CharField(max_length=2, choices=WATCH, default='W')
     movie = models.FileField(null=True, blank=True)
     favorite_movie = models.CharField(max_length=1, choices=FAVORITE, blank=True)
-    movie_path=models.CharField(max_length=100,blank=True)
+    movie_path=models.CharField(max_length=200,blank=True)
+    category = models.CharField(max_length=50, blank=True)
+    poster = models.CharField(max_length=200,blank=True)
+    movie_rate=models.CharField(max_length=5,blank=True)
+    imdb_page=models.CharField(max_length=100,blank=True)
 
 
     def __str__(self):
@@ -35,8 +42,11 @@ class Movie(models.Model):
     def get_update_url(self):
         return reverse('movie:movie_update', kwargs={'id': self.id})
 
+
+
     class Meta:
-        ordering = ['favorite_movie', 'date', 'id']
+        ordering = ['date', 'id']
+
 
 
 class add_multiple(models.Model):
