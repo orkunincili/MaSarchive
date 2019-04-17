@@ -14,10 +14,12 @@ class UserForm(forms.ModelForm):
 
         fields=[
             'user_name',
-            'tv_series',
             'movie',
+            'select_movie',
             'blog',
+            'select_blog',
             'book',
+            'select_book',
 
 
         ]

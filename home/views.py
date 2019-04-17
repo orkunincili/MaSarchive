@@ -28,14 +28,18 @@ def home_view(request):
 
 
 def user_settings(request):
-    form = UserForm(request.POST or None)
+    user = User.objects.all()
+    if user.count()!=0:
+        form=UserForm(request.POST or None,instance=user[0])
+    else:
+        form = UserForm(request.POST or None)
 
     if form.is_valid():
-        setting = form.save(commit=False)
+        setting = form.save()
 
-        setting.save()
-        users=User.objects.all()
-        if(users.count()>1):
+
+
+        if(user.count()>1):
             User.objects.get(id=setting.id-1).delete()
 
 
