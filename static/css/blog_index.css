@@ -1,0 +1,41 @@
+body{
+
+
+
+  margin:0px;
+}
+.blog_index_container{
+
+  float: left;
+  margin-top:100px;
+  width: 40%;
+  margin-left:20px;
+  height:250px;
+  border-width:0px 5px 0px 5px;
+  background-color:#192a56;
+
+
+}
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+.blog_title{
+   font-family:monospace;
+   font-size:20px;
+   color:white;
+   text-align:center;
+}
+.blog_content{
+   margin-left:10px;
+   color:white;
+   font-family:monospace;
+}
+.blog_date{
+   text-align:center;
+
+   margin-top:100px;
+   font-family:monospace;
+   color:white;
+}

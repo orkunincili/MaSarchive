@@ -61,8 +61,8 @@ font-size:50px;
 
 #movie_notes{
 
-padding-left:150px;
-padding-right:100px;
+padding-left:30px;
+font-family:monospace;
 font-size:25px;
 color:rgba(255,255,255,0.7);
 

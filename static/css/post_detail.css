@@ -1,0 +1,42 @@
+#detail_sec{
+  border:0px solid grey;
+  width:70%;
+  margin:auto;
+  margin-top:50px;
+  padding-top:50px;
+  background-color: rgba(255, 255, 255, 0.4);
+  border-radius:15px;
+  padding-bottom:30px;
+}
+
+#detail_art{
+
+    width:80%;
+    margin:auto;
+    margin-bottom:30px;
+    background-color: rgba(255, 255, 255, 0.01);
+    border:solid grey;
+    border-width:2px 0px 2px 0px;
+    border-radius:25px;
+
+}
+
+#detail_header{
+
+   text-align:center;
+   color:white;
+   margin:50px;
+   font-family: fantasy;
+
+
+
+}
+
+#detail_text{
+  padding-left:50px;
+
+
+}
+
+
+

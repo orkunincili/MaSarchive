@@ -171,7 +171,7 @@ color:#eccc68;
 
 
 
- animation:move 1s;
+ animation:add_move 1s;
 }
 .add_multiple_movie{
 
@@ -182,10 +182,10 @@ color:#eccc68;
  font-size:50px;
 
 
- animation:move 1s;
+ animation:add_move 1s;
 
 }
-@keyframes move{
+@keyframes add_move{
    0%   {opacity:0}
    25%  {opacity:0.25}
    50%  {opacity:0.50}
@@ -255,6 +255,20 @@ color:#eccc68;
 }
 
 
+.if_path_exist{
+margin-top:120px;
+color:#eccc68;
+
+}
+.button{
+   border:1px solid #b33939;
+   width:100%;
+   background-color:#b33939;
+   color:white;
+   height:40px;
+   font-size:30px;
+   border-radius:20px;
+}
 
 
 
