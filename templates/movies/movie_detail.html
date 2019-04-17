@@ -45,18 +45,18 @@
 
                   <div id="movie_date">Added {{movieD.date|timesince}} ago</div>
                   <div id="movie_category">{{movieD.category}}</div>
-                  <p style="color:white;">{{duration}}</p>
+                  <p style="color:white;">{{movieD.duration}}</p>
                   <p class="movie_summary">{{summary}}
                       <a class="movie_imdb_page" href="{{movieD.imdb_page}}">See more...</a>
                   </p>
-
-                  <div class="button">
-                      <form method="POST">
-                           {% csrf_token %}
-                          <input class="play_button" type="submit" name="Play" value="Play"/>
-                      </form>
-                  </div>
-
+                  {%if movieD.movie_path%}
+                      <div class="button">
+                          <form method="POST">
+                               {% csrf_token %}
+                              <input class="play_button" type="submit" name="Play" name="{{movieD.id}}" value="Play"/>
+                          </form>
+                      </div>
+                  {%endif%}
 
 
               </div>

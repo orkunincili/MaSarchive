@@ -1,10 +1,23 @@
+{%load static%}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="{% static 'css/post_detail.css'%}">
 </head>
 <body>
+        <div id="detail_header">
+                   <h1>{{postD.title}}</h1>
+                   <p>{{postD.date}}</p>
 
+
+        </div>
+       <div id="detail_sec">
+           <div id="detail_art">
+
+               <p id="detail_text">{{postD.content|safe}}</p>
+           </div>
+       </div>
 </body>
 </html>

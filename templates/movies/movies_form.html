@@ -6,6 +6,14 @@
     <title>Add Movies</title>
      <link rel="stylesheet" href="{% static 'css/movie_form.css'%}">
      <link rel="stylesheet" href="{% static 'css/home.css'%}">
+     <style>
+         body{
+          background-image:url({{movie.poster}});
+
+          background-size: 1300px;
+       }
+
+   </style>
 
 </head>
 <body>
@@ -22,18 +30,16 @@
 
        <form method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
-
-            <div class="movie_index_container">
-
-           <div class="movie_index_content" >
+           <div class="movie_index_container">
+            <img id="movie_poster" src="{{movie.poster}}"/>
+           <div class="movie_form_content" >
                <h2 id="movie_name">Movie Name:{{form.movie_name}}</h2>
-               <h3 id="movie_category">Category:{{form.category}}</h3>
                <h4 id="movie_watch">Did you watch?{{form.watch}}</h4>
-               <h5 id="movie_add">Add Movie(If you want):{{form.movie}}</h5>
-               <h6 id="movie_favorite">Add favorites?{{form.favorite_movie}}</h6>
-               <p>{{form.movie_path}}</p>
+               <h5 id="movie_favorite">Add favorites?{{form.favorite_movie}}</h5>
+               <h6 id="movie_path">/path/to/movie:{{form.movie_path}}</h6>
                <p class="movie_note_title">Notlar:</p>
                <p class="movie_note">{{form.notes}}</p>
+
            </div>
 
        </div>
