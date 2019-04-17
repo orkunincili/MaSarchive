@@ -16,22 +16,25 @@ class Movie(models.Model):
 
 
 
-    movie_name = models.CharField(max_length=50)
+    movie_name = models.CharField(max_length=100)
     notes = models.TextField(blank=True)
     date = models.DateTimeField(auto_now_add=True)
     watch = models.CharField(max_length=2, choices=WATCH, default='W')
-    movie = models.FileField(null=True, blank=True)
     favorite_movie = models.CharField(max_length=1, choices=FAVORITE, blank=True)
     movie_path=models.CharField(max_length=200,blank=True)
     category = models.CharField(max_length=50, blank=True)
     poster = models.CharField(max_length=200,blank=True)
-    movie_rate=models.CharField(max_length=5,blank=True)
+    movie_rate=models.CharField(max_length=7,blank=True)
     imdb_page=models.CharField(max_length=100,blank=True)
+    duration=models.CharField(max_length=10,blank=True)
 
 
     def __str__(self):
 
         return self.movie_name
+
+    def get_watched_url(self):
+        return reverse('movie:watched',kwargs={'id':self.id})
 
     def get_absolute_url(self):
         return reverse('movie:movie_detail', kwargs={'id': self.id})
@@ -45,7 +48,7 @@ class Movie(models.Model):
 
 
     class Meta:
-        ordering = ['date', 'id']
+        ordering = ['-date', 'id']
 
 
 

@@ -8,10 +8,8 @@ class MovieForm(forms.ModelForm):
         fields = [
 
             "movie_name",
-            "category",
             "notes",
             "watch",
-            "movie",
             "favorite_movie",
             "movie_path",
 
