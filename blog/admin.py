@@ -1,12 +1,12 @@
 from django.contrib import admin
-from blog.models import add_multiple
+from blog.models import Diary
 
 # Register your models here.
 
 
 
-class add_multipleAdmin(admin.ModelAdmin):
-    list_display = ["path"]
+class DiaryAdmin(admin.ModelAdmin):
+    list_display = ["title","content"]
 
 
-admin.site.register(add_multiple,add_multipleAdmin)
+admin.site.register(Diary,DiaryAdmin)

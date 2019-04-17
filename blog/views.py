@@ -1,12 +1,12 @@
-from django.shortcuts import render
+from django.shortcuts import render,HttpResponse,HttpResponseRedirect
 from .models import Diary
 from home.models import User
-from .forms import add_multipleForm,DiaryForm
+from .forms import DiaryForm
 import os,magic,webbrowser
 
 
 
-def book_index(request):
+def blog_index(request):
    diary=Diary.objects.all()
    user = User.objects.all()
 
@@ -15,13 +15,13 @@ def book_index(request):
        "user":user,
    }
    return render(request,"blog/blog_index.html",context)
-def book_create(request):
+def blog_create(request):
     form = DiaryForm(request.POST or None)
     user = User.objects.all()
     if form.is_valid():
-        diary = form.save(commit=False)
+        form.save()
 
-        diary.save()
+
 
 
 
@@ -33,20 +33,39 @@ def book_create(request):
     return render(request, "blog/blog_form.html", context)
 
 
-def book_update(request,id):
-    book=Diary.Objects.get(id=id)
-    return HttpResponse("update")
+def blog_update(request,id):
+
+    user = User.objects.all()
+    if user[0].select_movie == 'E':
+        post = Diary.objects.get(id=id)
+        user = User.objects.all()
+        form = DiaryForm(request.POST or None, request.FILES or None, instance=post)
+        if form.is_valid():
+            form.save()
+
+            return HttpResponseRedirect(post.get_absolute_url())
+        context = {
+            'form': form,
+            'user': user,
+            'post': post,
+        }
+
+        return render(request, "movies/blog_form.html", context)
+    else:
+        return HttpResponse("App is disable")
 
 
-def book_delete(request):
+
+def blog_delete(request,id):
+
     return HttpResponse("delete")
 
-def book_detail(request,id):
-    diary = Diary.objects.get(id=id)
+def blog_detail(request,id):
+    postD = Diary.objects.get(id=id)
     user = User.objects.all()
 
     context = {
-        "diaryD": diary,
+        "postD": postD,
         "user": user,
     }
 

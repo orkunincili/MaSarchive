@@ -7,11 +7,24 @@ class Diary(models.Model):
 
       title=models.CharField(max_length=50)
       content=models.TextField()
-      date=models.DateTimeField()
+      date=models.DateTimeField(auto_now=True)
+
+      def __str__(self):
+            return self.title
 
 
 
+      def get_absolute_url(self):
+            return reverse('blog:blog_detail', kwargs={'id': self.id})
 
-class add_multiple(models.Model):
+      def get_create_url(self):
+            return reverse('blog:blog_create', kwargs={'id': self.id})
 
-      path=models.CharField(max_length=100)
+      def get_update_url(self):
+            return reverse('blog:blog_update', kwargs={'id': self.id})
+
+      class Meta:
+            ordering = ['-date', 'id']
+
+
+
