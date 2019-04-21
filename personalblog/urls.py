@@ -25,6 +25,7 @@ urlpatterns = [
     url(r'^blog/',include("blog.urls")),
     url(r'^movie/',include("movie.urls")),
     url(r'^book/',include("book.urls")),
+    url(r'^tv/',include("tv_series.urls")),
 
 
 ]
