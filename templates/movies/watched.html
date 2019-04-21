@@ -40,8 +40,11 @@
            {%endif%}
       <div class="row">
       {%for i in movieW%}
+
           <div class="movie_index_container">
-              <img id="movie_poster" src="{{i.poster}}" style="width:190px; height:280px;"/>
+             <a  href="{{ i.get_absolute_url }}">
+                 <img id="movie_poster" src="{{i.poster}}" style="width:190px; height:280px;"/>
+             </a>
            <div class="movie_index_content" >
                <h3 class="movie_name">{{i.movie_name}}</h3>
                <p id="movie_category">Category:{{i.category}}</p>
@@ -56,14 +59,13 @@
                    <img style="height:30px;" src="{%static 'star.svg'%}">
                {%endif%}
 
-                <div class="opt_link">
-                  <a class="movie_update" href="{{ i.get_update_url }}">Edit</a>
-                  <a class="movie_view" href="{{ i.get_absolute_url }}">View</a>
-                </div>
+               
 
            </div>
             <p class="movie_date">Added {{i.date|timesince}} ago</p>
-       </div>
+          </div>
+
+
      {%endfor%}
       </div>
      <div class="pagination">

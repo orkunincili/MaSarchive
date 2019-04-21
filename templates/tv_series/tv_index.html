@@ -1,10 +1,17 @@
+{%load static%}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>$Title$</title>
+    <title>Title</title>
+    <link rel="stylesheet" href="{% static 'css/tv_index.css'%}">
 </head>
 <body>
-$END$
+   <div class="row">
+       {%for i in tv%}
+       <a href="{{i.get_absolute_url}}"><img class="tv_poster" src="{{i.tv_poster}}"></a>
+
+       {%endfor%}
+   </div>
 </body>
 </html>

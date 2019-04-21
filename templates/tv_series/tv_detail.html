@@ -1,10 +1,59 @@
+{%load static%}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>$Title$</title>
+    <title>Title</title>
+     <link rel="stylesheet" href="{% static 'css/movie_detail.css'%}">
+    <style>
+         body{
+          background-image:url({{tvD.tv_poster}});
+
+
+       }
+    </style>
 </head>
 <body>
-$END$
+         <div id="movie_detail_container">
+               <img id="movie_poster" src="{{tvD.tv_poster}}"/>
+               <div id="movie_detail_header">
+                  {%if movieD.favorite_movie%}
+                     <div class="if_favorite_img">
+                       <img  src="{%static 'star.svg'%}" style="width:50px;height:50px;"/>
+                     </div>
+
+                  {%endif%}
+                  <p id="movie_name">{{tvD.tv_name}}</p><hr>
+
+
+
+                  <div id="movie_date">Added {{tvD.date|timesince}} ago</div>
+                  <div id="movie_category">{{tvD.category}}</div>
+                  <p style="color:white;">{{tvD.duration}}</p>
+                  <p class="movie_summary">{{tvD.summary}}
+                      <a class="movie_imdb_page" href="{{tvD.imdb_page}}">See more...</a>
+                  </p>
+                   {%for i in season%}
+                    <div class="dropdown">
+                      <button class="dropbtn">Season {{i}}</button>
+                      <div class="dropdown-content">
+                          {%for episode in tvD.episodes.all%}
+                            {%ifequal i episode.season%}
+                              <form method="GET">
+
+                                   <input class="tv_play_button" type="submit" name="play" value="{{episode.episode_name}}"/>
+                              </form>
+
+
+                            {%endifequal%}
+                          {%endfor%}
+                      </div>
+                    </div>
+                   {%endfor%}
+
+
+              </div>
+
+          </div>
 </body>
 </html>
