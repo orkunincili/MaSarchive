@@ -1,0 +1,21 @@
+body{
+    background-image:url("/static/tvseries_bg.jpg");
+    -webkit-box-shadow: inset 0px 0px 600px 600px rgba(0,0,0,0.7);
+    -moz-box-shadow: inset 0px 0px 600px 600px rgba(0,0,0,0.7);
+    box-shadow: inset 0px 0px 600px 600px rgba(0,0,0,0.7);
+    margin:0px;
+}
+.row:after{
+  content: "";
+  display: table;
+  clear: both;
+}
+.tv_poster{
+   margin-top:100px;
+   margin-left:100px;
+   float:left;
+   height:450px;
+   width:300px;
+   border:1px solid white;
+   border-radius:25px;
+}
