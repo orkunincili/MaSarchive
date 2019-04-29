@@ -133,10 +133,12 @@ def watched(request):
     user = User.objects.all()
     if user[0].select_movie == 'E':
         movies = Movie.objects.all()
+
         user = User.objects.all()
         favorite_movies=Movie.objects.filter(favorite_movie="F")
         movieNW = Movie.objects.filter(watch="nW")
         movieW = Movie.objects.filter(watch="W")
+
         paginator = Paginator(movieW, 22)
         page = request.GET.get('page')
 
@@ -168,6 +170,7 @@ def watched(request):
             "len_fav": len_fav,
             "len_W": len_W,
             "len_nW": len_nW,
+
 
 
         }
@@ -224,13 +227,17 @@ def movie_create(request):
                 except:
                    movie_rate="No Rate"
                 movie_category = source.find("div", attrs={"class": "subtext"}).find_all("a")
-                movie_category_text = []
+                summary = source.find("div", attrs={"class": "summary_text"}).text
+
+                movie_category_text = ""
                 del movie_category[-1]
                 for category in movie_category:
-                    movie_category_text.append(category.text)
+                    movie_category_text+=category.text+" "
 
-                Movie.objects.create(movie_name=movie_name, poster=movie_poster,watch=movie.watch,imdb_page=imdb+movie_page,
-                                     movie_rate=movie_rate, category=movie_category_text,duration=duration)
+                movie=Movie.objects.create(movie_name=movie_name, poster=movie_poster,watch=movie.watch,imdb_page=imdb+movie_page,
+                                     movie_rate=movie_rate, category=movie_category_text,duration=duration,summary=summary)
+
+                return HttpResponseRedirect(movie.get_absolute_url())
 
         context = {
             'form': form,
@@ -273,10 +280,7 @@ def movie_detail(request,id):
     if user[0].select_movie == 'E':
         movie=Movie.objects.get(id=id)
         user = User.objects.all()
-        movie_url=movie.imdb_page
-        r=requests.get(movie_url)
-        source = BeautifulSoup(r.content, "lxml")
-        summary = source.find("div", attrs={"class": "summary_text"}).text
+
 
         if request.POST.get("Play") == 'Play':
             subprocess.call(['vlc',movie.movie_path])
@@ -287,7 +291,7 @@ def movie_detail(request,id):
         context={
             "movieD":movie,
             "user":user,
-            "summary":summary,
+
 
         }
 
@@ -321,20 +325,23 @@ def add_multiple_movie(request):
 
             for i in range(len(movie_path_list)):
                 path=movie_path_list[i]
-                movie_name_list[i]=movie_name_list[i].replace(".mp4","")
-                movie_name_list[i] = movie_name_list[i].replace(".mkv", "")
-                movie_name_list[i] = movie_name_list[i].replace(".avi", "")
+                movie_name_list[i] = movie_name_list[i].replace(".mp4","")
+                movie_name_list[i] = movie_name_list[i].replace(".mkv","")
+                movie_name_list[i] = movie_name_list[i].replace(".avi","")
 
                 base_url = 'http://www.imdb.com/find'
                 imdb = 'http://www.imdb.com'
-                params = dict(ref_="nv_sr_fn", q=movie_name_list[i], s="tt")
+
+                params = dict(ref_="nv_sr_fn",q=movie_name_list[i], s="tt")
 
                 r = requests.get(base_url, params=params)
                 source = BeautifulSoup(r.content, "lxml")
-                movie_list = source.find("ul", attrs={"class": "findTitleSubfilterList"}).find("a").get("href")
-                r = requests.get(imdb + movie_list)
-                source = BeautifulSoup(r.content, "lxml")
-                movie_page = source.find("td", attrs={"class": "result_text"}).find("a").get("href")
+
+                if source.find("td", attrs={"class":"result_text"})==None:
+                    params = dict(q=movie_name_list[i],s="tt",ttype="ft",ref_="fn_ft")
+                    r = requests.get(base_url, params=params)
+                    source = BeautifulSoup(r.content, "lxml")
+                movie_page = source.find("td", attrs={"class":"result_text"}).find("a").get("href")
                 movie_detail = requests.get(imdb + movie_page)
                 source = BeautifulSoup(movie_detail.content, "lxml")
                 if source.find("h1", attrs={"class": ""}) == None:
@@ -359,17 +366,24 @@ def add_multiple_movie(request):
                         new_poster_url += "."
 
                 movie_poster = new_poster_url
-
-                movie_rate = source.find("span", attrs={"itemprop": "ratingValue"}).text
+                summary = source.find("div", attrs={"class": "summary_text"}).text
+                try:
+                    movie_rate = source.find("span", attrs={"itemprop": "ratingValue"}).text
+                except:
+                    movie_rate = "No Rate"
                 movie_category = source.find("div", attrs={"class": "subtext"}).find_all("a")
-                movie_category_text = []
+
+
+                movie_category_text = ""
                 del movie_category[-1]
                 for category in movie_category:
-                    movie_category_text.append(category.text)
+                    movie_category_text += category.text + " "
+
+
 
                 Movie.objects.create(movie_name=movie_name, poster=movie_poster, imdb_page=imdb + movie_page,
                                      movie_path=path, movie_rate=movie_rate, category=movie_category_text,
-                                     duration=duration)
+                                     duration=duration,summary=summary)
 
 
 
