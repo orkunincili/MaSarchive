@@ -139,7 +139,7 @@ def watched(request):
         movieNW = Movie.objects.filter(watch="nW")
         movieW = Movie.objects.filter(watch="W")
 
-        paginator = Paginator(movieW, 22)
+        paginator = Paginator(movieW, 10)
         page = request.GET.get('page')
 
 
@@ -191,6 +191,7 @@ def movie_create(request):
                 base_url = 'http://www.imdb.com/find'
                 imdb = 'http://www.imdb.com'
                 params = dict(ref_="nv_sr_fn", q=movie.movie_name, s="tt")
+
 
                 r = requests.get(base_url, params=params)
                 source = BeautifulSoup(r.content, "lxml")

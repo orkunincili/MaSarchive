@@ -27,14 +27,13 @@ class Movie(models.Model):
     movie_rate=models.CharField(max_length=7,blank=True)
     imdb_page=models.CharField(max_length=100,blank=True)
     duration=models.CharField(max_length=10,blank=True)
+    summary=models.TextField(blank=True)
 
 
     def __str__(self):
 
         return self.movie_name
 
-    def get_watched_url(self):
-        return reverse('movie:watched',kwargs={'id':self.id})
 
     def get_absolute_url(self):
         return reverse('movie:movie_detail', kwargs={'id': self.id})
