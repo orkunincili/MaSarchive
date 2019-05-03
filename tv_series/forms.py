@@ -12,7 +12,13 @@ class Tv_SeriesForm(forms.ModelForm):
 
 
         ]
+class TvForm(forms.ModelForm):
+    class Meta:
+        model=Tv
 
+        fields={
+            "tv_name",
+        }
 
 
 class add_multipleForm(forms.ModelForm):
