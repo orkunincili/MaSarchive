@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.shortcuts import render,HttpResponse,HttpResponseRedirect
 from .models import Tv,Tv_Series
 from home.models import User
-from .forms import Tv_SeriesForm,add_multipleForm
+from .forms import Tv_SeriesForm,add_multipleForm,TvForm
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 import os,magic,webbrowser
 from bs4 import BeautifulSoup
@@ -14,8 +14,17 @@ import subprocess
 # Create your views here.
 def tv_index(request):
     tv=Tv_Series.objects.all()
+    user=User.objects.all()
 
-    return render(request, "tv_series/tv_index.html", {"tv":tv})
+    context={
+        "tv":tv,
+        "user":user,
+
+
+
+    }
+
+    return render(request, "tv_series/tv_index.html", context)
 
 
 def tv_create(request):
@@ -29,7 +38,7 @@ def tv_create(request):
                 tv=form.save(commit=False)
                 base_url = 'http://www.imdb.com/find'
                 imdb = 'http://www.imdb.com'
-                params = dict(q=tv.tv_name, s="tt", ttype="tv", ref_="fn_tv")
+                params = dict(q=tv.tv_name, s="tt",ref_="fn_tt")
                 r = requests.get(base_url, params=params)
                 source = BeautifulSoup(r.content, "lxml")
                 tv_page = source.find("td", attrs={"class": "result_text"}).find("a").get("href")
@@ -63,16 +72,17 @@ def tv_create(request):
                 except:
                     tv_rate = "No Rate"
                 tv_category = source.find("div", attrs={"class": "subtext"}).find_all("a")
-                tv_category_text = []
+                tv_category_text = ""
                 del tv_category[-1]
                 for category in tv_category:
-                    tv_category_text.append(category.text)
+                    tv_category_text += category.text + " "
                 seasons = source.find("div", attrs={"class": "seasons-and-year-nav"}).find("a")
                 seasons_number=int(seasons.text)
-                tv_serie=Tv_Series.objects.create(tv_name=tv.tv_name, tv_poster=tv_poster,
+                summary=source.find("div",attrs={"class":"summary_text"}).text
+                tv_serie=Tv_Series.objects.create(tv_name=tv_name, tv_poster=tv_poster,
                                      imdb_page=imdb + tv_page,
                                      tv_rate=tv_rate, tv_category=tv_category_text, tv_duration=duration,
-                                     seasons_number=seasons_number)
+                                     seasons_number=seasons_number,summary=summary)
 
 
                 for s in range(1, int(seasons.text) + 1):
@@ -86,12 +96,12 @@ def tv_create(request):
                             if i.find("strong").find("a").get("title") != None:
                                 episode_name = i.find("strong").find("a").get("title")
                                 episode = i.find("div", attrs={"class": ""}).text
-
+                                episode_poster=i.find("img",attrs={"zero-z-index"}).get("src")
                                 tv_rate = i.find("span", attrs={"class": "ipl-rating-star__rating"}).text
                                 summary = i.find("div", attrs={"class": "item_description"}).text
                                 Tv.objects.create(tv_name=tv_serie,season_episode=episode,episode_name=episode_name,
                                                   imdb_page=imdb + tv_page,
-                                                  tv_rate=tv_rate, summary=summary,season=s)
+                                                  tv_rate=tv_rate, summary=summary,season=s,poster=episode_poster)
 
                         except:
                             pass
@@ -112,11 +122,9 @@ def tv_detail(request,id):
     if user[0].select_movie == 'E':
         tv = Tv_Series.objects.get(id=id)
 
-        if request.GET.get("play") == 'Play':
-            r = requests.get("http://127.0.0.1:8000/tv/"+str(id))
-            source = BeautifulSoup(r.content, "lxml")
-            tv_id = source.find("input", attrs={"class":"tv_play_button"}).get("id")
-            subprocess.call(['vlc',tv_id])
+
+
+
 
 
         context = {
@@ -131,10 +139,28 @@ def tv_detail(request,id):
     else:
         return HttpResponse("App is disable")
 
+def watch(request,id,id2):
+    tv=Tv_Series.objects.get(id=id)
+    episode=tv.episodes.get(id=id2)
+
+
+
+
+    context={
+       "tv":tv,
+       "episode":episode,
+
+
+    }
+
+    return render(request, "tv_series/watch.html",context )
+
 def add_multiple_tv(request):
+        which_tv=TvForm(request.POST or None)
         form = add_multipleForm(request.POST or None)
 
-        if form.is_valid():
+        if form.is_valid() and which_tv.is_valid():
+            which_tv=which_tv.save(commit=False)
             path=form.save()
             movies = os.listdir(path.path)
             movie = []
@@ -143,8 +169,7 @@ def add_multiple_tv(request):
 
                 if mime_type.startswith("video") == True:
                     movie.append(i)
-            for i in range(len(movie)):
-                movie[i] = movie[i].replace(".mp4", "").replace(".mkv", "").replace(".avi", "")
+
             new_movie = []
             for i in movie:
                 i = i.lower()
@@ -155,11 +180,21 @@ def add_multiple_tv(request):
 
                 a[0] = a[0].replace("s", "S").replace("e", "E")
                 a = list(a[0])
-                a.insert(int(len(a) / 2), ",")
-                a.insert(int(((len(a) - 1) / 2) + 2), "p")
+                if int(a[1]) == 0:
+                    a.remove(a[1])
+                    if int(a[3]) == 0:
+                        a.remove(a[3])
+                else:
+
+                    if int(a[a.index("E") + 1]) == 0 and (a.index("E") + 1) == len(a) - 2:
+                        a.remove(a[a.index("E") + 1])
+
+                a.insert(a.index("E"), ",")
+                a.insert(a.index("E") + 1, "p")
+                a.insert(a.index(",") + 1, " ")
                 a.insert(0, "\n\n")
                 a.insert(len(a) + 1, "\n")
-                a.insert(4, " ")
+
                 episode = ""
                 for i in a:
                     episode += i
@@ -167,7 +202,7 @@ def add_multiple_tv(request):
                 new_movie2.append(episode)
 
             for i in range(len(new_movie2)):
-                 tv_name=path.path.split("/")[-2]
+                 tv_name=which_tv.tv_name
                  tv=Tv_Series.objects.get(tv_name=tv_name)
 
                  tv_episode=tv.episodes.get(season_episode=new_movie2[i])
@@ -178,7 +213,7 @@ def add_multiple_tv(request):
 
 
         context = {
-
+            "which_tv":which_tv,
             "form": form,
 
         }
