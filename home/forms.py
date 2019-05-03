@@ -20,6 +20,8 @@ class UserForm(forms.ModelForm):
             'select_blog',
             'book',
             'select_book',
+            'tv_series',
+            'select_tv',
 
 
         ]

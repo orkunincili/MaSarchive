@@ -15,6 +15,8 @@ class User(models.Model):
     select_blog = models.CharField(max_length=1, choices=SELECT, default='E')
     book=models.CharField(max_length=20,blank=True)
     select_book = models.CharField(max_length=1, choices=SELECT, default='E')
+    tv_series=models.CharField(max_length=20,blank=True)
+    select_tv= models.CharField(max_length=1, choices=SELECT, default='E')
 
 
 

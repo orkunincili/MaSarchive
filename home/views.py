@@ -1,9 +1,11 @@
-from django.shortcuts import render,HttpResponseRedirect
+from django.shortcuts import render,HttpResponse
 from .models import User
 from .forms import UserForm
 from book.models import Book
 from movie.models import Movie
-from django.contrib import messages
+from tv_series.models import *
+from django.template import loader
+
 # Create your views here.
 
 
@@ -14,12 +16,14 @@ def home_view(request):
     setting=User.objects.all()
     books=Book.objects.all().count()
     movies=Movie.objects.all().count()
+    tv_series=Tv_Series.objects.all().count()
 
     context={
 
         "setting":setting,
         "books":books,
         "movies":movies,
+        "tv_series":tv_series,
     }
 
 
@@ -41,6 +45,9 @@ def user_settings(request):
 
         if(user.count()>1):
             User.objects.get(id=setting.id-1).delete()
+
+
+
 
 
 
