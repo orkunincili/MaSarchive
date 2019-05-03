@@ -143,8 +143,7 @@ def watch(request,id,id2):
     tv=Tv_Series.objects.get(id=id)
     episode=tv.episodes.get(id=id2)
 
-
-
+    subprocess.call(['vlc', episode.tv_path])
 
     context={
        "tv":tv,
