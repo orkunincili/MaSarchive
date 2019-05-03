@@ -11,5 +11,6 @@ urlpatterns = [
         url(r'^tv_create/$', tv_create),
         url(r'^(?P<id>\d+)/$', tv_detail, name="tv_detail"),
         url(r'^add_tv/$', add_multiple_tv),
+        url(r'^watch/(?P<id>\d+)/(?P<id2>\d+)/$',watch,name='watch')
 
    ]
