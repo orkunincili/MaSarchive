@@ -1,21 +1,97 @@
 body{
-    background-image:url("/static/tvseries_bg.jpg");
+
+     background-color:#202020;
     -webkit-box-shadow: inset 0px 0px 600px 600px rgba(0,0,0,0.7);
     -moz-box-shadow: inset 0px 0px 600px 600px rgba(0,0,0,0.7);
     box-shadow: inset 0px 0px 600px 600px rgba(0,0,0,0.7);
     margin:0px;
 }
+.row{
+   margin-left:50px;
+
+
+
+}
 .row:after{
   content: "";
   display: table;
   clear: both;
+
 }
 .tv_poster{
    margin-top:100px;
-   margin-left:100px;
-   float:left;
-   height:450px;
-   width:300px;
-   border:1px solid white;
-   border-radius:25px;
+   margin-left:20px;
+   border-radius:15px;
+   border:solid grey;
+   border-width:1px 1px 5px 1px;
+   height:300px;
+   width:200px;
+
+
 }
+.tv_info{
+   color: white;
+
+   margin-top:100px;
+
+
+}
+
+.tv_content{
+
+   float:left;
+   width:60%;
+
+
+
+}
+
+#tv_name{
+  color:#EA2027;
+  text-decoration:none;
+  font-size:70px;
+}
+.dropbtn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+}
+.tv_play_button{
+   background-color: #f1f1f1;
+   border:1px solid #f1f1f1;
+   min-width: 160px;
+   height:50px;
+}
+.tv_play_button:hover{
+  background-color: #4CAF50;
+
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {background-color: #ddd;}
+
+.dropdown:hover .dropdown-content {display: block;}
+
+.dropdown:hover .dropbtn {background-color: #3e8e41;}

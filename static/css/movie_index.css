@@ -1,6 +1,6 @@
 body{
 
-  background-image:url("/static/movies_bg.jpg");
+   background-color:#202020;
   -webkit-box-shadow: inset 0px 0px 600px 600px rgba(0,0,0,0.7);
   -moz-box-shadow: inset 0px 0px 600px 600px rgba(0,0,0,0.7);
   box-shadow: inset 0px 0px 600px 600px rgba(0,0,0,0.7);
@@ -8,20 +8,55 @@ body{
   margin:0px;
 
 }
+* {
+    -webkit-text-size-adjust: none;
+}
+
+.movie_info{
+   color: white;
 
 
-.movie_index_container{
-  font-family:monospace;
-  float: left;
-  width: 40%;
-  margin-left:20px;
-  height:325px;
-  border:solid grey;
-  border-width:0px 5px 0px 5px;
-  border-radius:25px;
-  margin-bottom:100px;
-  background-color:rgba(0,0,0,0.8);
-  padding-bottom:12px;
+}
+.content{
+
+  font-size:20px;
+}
+
+.movie_content{
+   padding-top:25px;
+   margin-top:50px;
+   float:left;
+   width:60%;
+   height:800px;
+   border-radius:20px;
+
+   background-size:100%;
+   -webkit-box-shadow: inset 0px 0px 600px 600px rgba(0,0,0,0.7);
+   -moz-box-shadow: inset 0px 0px 600px 600px rgba(0,0,0,0.7);
+   box-shadow: inset 0px 0px 600px 600px rgba(0,0,0,0.7);
+
+
+}
+
+#movie_name{
+  color:rgb(234, 32, 39);
+  text-decoration:none;
+  text-shadow: 1px 1px, 1px 0px;  font-family: "Comic Sans MS", cursive, sans-serif;
+  font-size:50px;
+}
+
+
+
+.add{
+  border:1px solid white;
+   width:200px;
+   height:300px;
+
+}
+
+.row{
+   margin-left:100px;
+   width-left:200%;
 
 }
 
@@ -56,7 +91,7 @@ body{
 
 
 }
-.movie_index_content{
+movie_index_content{
 
  margin-top:10px;
  width:60%;
@@ -103,18 +138,15 @@ color:#eccc68;
 
 
 
-.page_title{
+#page_title{
    text-align:center;
-   color:white;
-   font-family:monospace;
-   font-size:50px;
+   color:#192a56;
+   font-family: "Comic Sans MS", cursive, sans-serif;
+   font-size:30px;
    margin-top:200px;
    margin-left:50px;
    margin-right:50px;
-   border-radius:25px 0 25px 0;
-   -webkit-box-shadow: inset 0px 0px 300px 200px rgba(0,0,0,0.8);
-   -moz-box-shadow: inset 0px 0px 300px 200px rgba(0,0,0,0.8);
-   box-shadow: inset 0px 0px 300px 200px rgba(0,0,0,0.8);
+
 
 
 }
@@ -193,12 +225,21 @@ color:#eccc68;
    100% {opacity:1}
 
 }
-#movie_poster{
+.movie_poster{
 
    margin-left:10px;
    margin-top:15px;
    border-radius:15px;
    border:1px solid white;
+   width:200px;
+   height:300px;
+   position:relative;
+
+
+}
+#plus{
+
+
 
 }
 
@@ -268,6 +309,12 @@ color:#eccc68;
    height:40px;
    font-size:30px;
    border-radius:20px;
+}
+.edit{
+  text-decoration:none;
+  color:#2e86de;font-family: "Comic Sans MS", "Comic Sans", cursive;font-family: "Comic Sans MS", "Comic Sans", cursive;
+
+
 }
 
 
