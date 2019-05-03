@@ -11,6 +11,39 @@
 
 
        }
+        #season_episode{
+          text-align:center;
+          color:white;
+          -webkit-box-shadow: inset 0px -98px 31px 0px rgba(0,0,0,0.75);
+            -moz-box-shadow: inset 0px -98px 31px 0px rgba(0,0,0,0.75);
+            box-shadow: inset 0px -98px 31px 0px rgba(0,0,0,0.75);
+
+
+        }
+        .episode_poster{
+
+           height:126px;
+           width:224px;
+           float:left;
+           margin-left:25px;
+           margin-top:10px;
+
+
+
+        }
+        .row{
+
+
+         }
+        .row:after{
+          content: "";
+          display: table;
+          clear: both;
+
+        }
+
+
+
     </style>
 </head>
 <body>
@@ -27,33 +60,35 @@
 
 
 
-                  <div id="movie_date">Added {{tvD.date|timesince}} ago</div>
+
                   <div id="movie_category">{{tvD.category}}</div>
                   <p style="color:white;">{{tvD.duration}}</p>
                   <p class="movie_summary">{{tvD.summary}}
                       <a class="movie_imdb_page" href="{{tvD.imdb_page}}">See more...</a>
                   </p>
                    {%for i in season%}
-                    <div class="dropdown">
-                      <button class="dropbtn">Season {{i}}</button>
-                      <div class="dropdown-content">
-                          {%for episode in tvD.episodes.all%}
-                            {%ifequal i episode.season%}
-                              <form method="GET">
-
-                                   <input class="tv_play_button" type="submit" name="play" value="{{episode.episode_name}}"/>
-                              </form>
-
-
-                            {%endifequal%}
-                          {%endfor%}
-                      </div>
-                    </div>
+                      <button class="dropbtn" onclick="show({{i}});">Season {{i}}</button>
                    {%endfor%}
+               </div>
+               <div class="row">
+               {%for i in season%}
+                  <div class="movie_detail_content" id="{{i}}" style="display:none; margin-bottom:50px;" >
+                       <h1 style="color:white; text-align:center;">Season {{i}}</h1>
+                      {%for episode in tvD.episodes.all%}
+                         {%ifequal i episode.season%}
 
+                              <a href="/tv/watch/{{tvD.id}}/{{episode.id}}" >
+                                <div class="episode_poster" style="background-image:url({{episode.poster}});">
+                                    <div id="season_episode">{{episode.season_episode}}</div>
+                                </div>
+                              </a>
 
-              </div>
-
-          </div>
+                         {%endifequal%}
+                      {%endfor%}
+                  </div>
+               {%endfor%}
+               </div>
+         </div>
+<script src="{% static 'js/tv_episodes.js' %}"></script>
 </body>
 </html>

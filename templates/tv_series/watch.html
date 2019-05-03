@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{episode.episode_name}}({{episode.season_episode}})</title>
+    <style>
+        body{
+          background:black;
+
+        }
+        .text{
+          color:white;
+          text-align:center;
+
+        }
+        h1{margin-top:160px;font-size:40px;}
+        h3{font-size:30px;}
+        h3:hover{font-size:35px;}
+        h4{font-size:20px;}
+        a{text-decoration:none;color:white;}
+        #episode_content{
+          margin-left:60px;
+        }
+        img{float:left;}
+        .episode_detail{
+           position:relative;
+           color:white;
+
+           width:60%;
+           margin-left:250px;
+
+        }
+        .other_episodes{
+          margin-top:20px;
+
+          position:absolute;
+        }
+        .other_episodes:after{
+          content: "";
+          display: table;
+          clear: both;
+
+        }
+        #season_episode{
+          text-align:center;
+          color:white;
+          -webkit-box-shadow: inset 0px -98px 31px 0px rgba(0,0,0,0.75);
+            -moz-box-shadow: inset 0px -98px 31px 0px rgba(0,0,0,0.75);
+            box-shadow: inset 0px -98px 31px 0px rgba(0,0,0,0.75);
+
+
+        }
+        .episode_poster{
+
+           height:126px;
+           width:224px;
+           float:left;
+           margin-left:25px;
+           margin-top:10px;
+
+
+
+        }
+
+
+    </style>
+</head>
+<body>
+<h1 class="text">You watched <span style="color:#ee5253">{{tv}}</span><span>{{episode.episode_name}} ({{episode.season_episode}})</span></h1>
+     <h3 class="text">Would you like to write something about this episode?</h3>
+     <h4 class="text">or</h4>
+     <a href="{{tv.get_absolute_url}}"><h3 class="text">You can watch another episodes.</h3></a>
+     <div id="episode_content">
+         <img src="{{episode.poster}}" style="height:136px;width:234px"/>
+         <div  class="episode_detail">
+             <p>{{episode.episode_name}}&nbsp;{{episode.season_episode}}</p>
+             <p>{{episode.tv_rate}}</p>
+             <p>{{episode.summary}}<a href="{{episode.imdb_page}}" style="color:#feca57;">IMDb...</a></p>
+         </div>
+     </div>
+    <div class="other_episodes">
+        <p style="font-size:25px;color:white;margin-left:25px;">other episodes of season {{episode.season}}</p>
+        {%for i in tv.episodes.all%}
+
+           {%ifequal i.season episode.season%}
+              {%ifnotequal episode.season_episode i.season_episode%}
+                 <a href="/tv/watch/{{tv.id}}/{{i.id}}" >
+                     <div class="episode_poster" style="background-image:url({{i.poster}});">
+                        <div id="season_episode">{{i.season_episode}}</div>
+                     </div>
+                 </a>
+              {%endifnotequal%}
+           {%endifequal%}
+        {%endfor%}
+    </div>
+</body>
+</html>

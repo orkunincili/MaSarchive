@@ -5,13 +5,52 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <link rel="stylesheet" href="{% static 'css/tv_index.css'%}">
+    <link rel="stylesheet" href="{% static 'css/home.css'%}">
+
+
+    <style>
+
+
+    </style>
 </head>
 <body>
+
+ {%for user in user%}
+    <div class="header">
+      <a href="http://127.0.0.1:8000" class="logo">{{user.user_name}}</a>
+
+      <div class="header-right">
+          <a class="active" href="http://127.0.0.1:8000">Home</a>
+          <a  href="/movie/movie_index">Movies</a>
+          <a href="/tv/tv_index" >Tv-Series</a>
+          <a  href="/book/book_index">Books</a>
+
+      </div>
+
+    </div>
+{%endfor%}
+
    <div class="row">
        {%for i in tv%}
-       <a href="{{i.get_absolute_url}}"><img class="tv_poster" src="{{i.tv_poster}}"></a>
+          <img class="tv_poster" src="{{i.tv_poster}}" onclick="mouseover({{forloop.counter}});"/>
+            <div class="tv_info"  id="{{forloop.counter}}" style="display:none;">
+                <img src="{{i.tv_poster}}" style="height:500px;width:400px; margin:0px;border-radius:20px;" onclick="mouseover({{forloop.counter}});"/>
+                <div class="tv_content"  onclick="mouseover({{forloop.counter}});">
 
+                    <a href="{{i.get_absolute_url}}" id="tv_name">{{i.tv_name}}</a>
+                    <p style="font-size:20px;">{{i.tv_category}}</p>
+                    <p style="font-size:20px;">Rate: {{i.tv_rate}} </p>
+                    <p style="font-size:20px;">Seasons: {{i.seasons_number}} | Episodes: {{i.episodes.all|length}}</p>
+                    <p id="see_notes" style="display:none;">{{i.notes}}</p>
+                    <p style="font-size:20px;">Duration:{{i.tv_duration}}</p>
+                    <br>
+                    <p style="font-size:20px;">{{i.summary}}</p>
+                </div>
+
+
+            </div>
        {%endfor%}
    </div>
+<script src="{% static 'js/tv_series.js' %}"></script>
 </body>
 </html>

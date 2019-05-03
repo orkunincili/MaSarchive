@@ -31,7 +31,10 @@
        <form method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
            <div class="movie_index_container">
-            <img id="movie_poster" src="{{movie.poster}}"/>
+            {%if not movie.poster%}
+               <p class="if_not_poster">Poster will appear here</p>
+            {%endif%}
+               <img id="movie_poster" src="{{movie.poster}}"/>
            <div class="movie_form_content" >
                <h2 id="movie_name">Movie Name:{{form.movie_name}}</h2>
                <h4 id="movie_watch">Did you watch?{{form.watch}}</h4>

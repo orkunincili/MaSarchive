@@ -21,10 +21,10 @@
 
        <form method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
-                    {{ form.as_p }}
+            <p id="path">{{form}}</p>
 
              <input type="submit" value="Add Movies">
          </form>
-
+<script src="{% static 'js/movies.js' %}"></script>
 </body>
 </html>

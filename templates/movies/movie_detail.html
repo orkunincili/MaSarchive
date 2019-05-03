@@ -11,7 +11,7 @@
        body{
           background-image:url({{movieD.poster}});
 
-          background-size: 1300px;
+          background-size: 1500px;
        }
 
    </style>
@@ -44,9 +44,10 @@
 
 
                   <div id="movie_date">Added {{movieD.date|timesince}} ago</div>
+
                   <div id="movie_category">{{movieD.category}}</div>
                   <p style="color:white;">{{movieD.duration}}</p>
-                  <p class="movie_summary">{{summary}}
+                  <p class="movie_summary">{{movieD.summary}}
                       <a class="movie_imdb_page" href="{{movieD.imdb_page}}">See more...</a>
                   </p>
                   {%if movieD.movie_path%}
@@ -60,14 +61,12 @@
 
 
               </div>
-              <div id="movie_detail_content">
+              <div id="movie_detail_content" >
                   <p style="color:white; font-size:25px; text-align:center;">Notes</p>
 
                   <p id="movie_notes">{{movieD.notes}}</p>
 
-              <div id="update_link">
-                  <a href="{{ movieD.get_update_url }}">Edit</a>
-              </div>
+
 
           </div>
 
