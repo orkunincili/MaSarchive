@@ -8,36 +8,50 @@ import os,magic,webbrowser
 
 
 def book_index(request):
-   books=Book.objects.all()
-   user = User.objects.all()
-   if user[0].select_book=='E':
-       bookR=[]
-       bookNR=[]
-       favorite_books=[]
+    user = User.objects.all()
+    if user[0].select_movie == 'E':
 
-       for i in books:
-           if(i.favorite_book=="F"):
-               favorite_books.append(i)
-           elif(i.read=='R'):
-               bookR.append(i)
-           else:
-               bookNR.append(i)
-       len_fav=len(favorite_books)
-       len_R=len(bookR)
-       len_nR=len(bookNR)
-       context={
-           "books":books,
-           "bookR":bookR,
-           "bookNR":bookNR,
-           "user": user,
-           "fav_book":favorite_books,
-           "len_fav":len_fav,
-           "len_R":len_R,
-           "len_nR":len_nR
+        if request.POST.get("allbooks") == "allbooks":
+            books = Book.objects.all()
+
+
+        elif request.POST.get("read") == "read":
+
+            books = Book.objects.filter(read="R")
+
+
+        elif request.POST.get("not read") == "not read":
+            books = Book.objects.filter(read="nR")
+
+
+        elif request.POST.get("reading") == "reading":
+            books = Book.objects.filter(read='Rg')
+
+
+        else:
+            books = Book.objects.all()
+
+        len_all = len(Book.objects.all())
+
+        len_rg = len(Book.objects.filter(read="Rg"))
+
+        len_r = len(Book.objects.filter(read="R"))
+
+        len_nr = len(Book.objects.filter(read="nR"))
+        context = {
+            "books": books,
+            "user": user,
+            "len_all":len_all,
+            "len_rg":len_rg,
+            "len_r":len_r,
+            "len_nr":len_nr,
+
         }
-       return render(request,"books/book_index.html",context)
-   else:
-       return HttpResponse("Disable")
+
+        return render(request, "books/book_index.html", context)
+    else:
+        return HttpResponse("App is disable")
+
 def book_create(request):
 
     user = User.objects.all()

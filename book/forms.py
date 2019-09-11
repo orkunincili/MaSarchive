@@ -20,7 +20,6 @@ class BookForm(forms.ModelForm):
             "author_name",
             "notes",
             "read",
-            "favorite_book",
             "book",
         ]
 
