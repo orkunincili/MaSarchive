@@ -3,15 +3,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Tv Shows</title>
     <link rel="stylesheet" href="{% static 'css/tv_index.css'%}">
-    <link rel="stylesheet" href="{% static 'css/home.css'%}">
 
-
-    <style>
-
-
-    </style>
+    <style>body{background:#101010;margin:0px;}</style>
 </head>
 <body>
 
@@ -21,7 +16,7 @@
 
       <div class="header-right">
           <a class="active" href="http://127.0.0.1:8000">Home</a>
-          <a  href="/movie/movie_index">Movies</a>
+          <a  href="/movie/movies">Movies</a>
           <a href="/tv/tv_index" >Tv-Series</a>
           <a  href="/book/book_index">Books</a>
 
@@ -29,18 +24,28 @@
 
     </div>
 {%endfor%}
+  <form method="POST">
+         {% csrf_token %}
+         <input class="filter" type="submit" name="sort by rating" value="sort by rating"/>
+         <input class="filter" type="submit" name="sort by seasons" value="sort by seasons"/>
+  </form>
+  <p id="page_title">
+      <small><a style="margin-right:100px;color:white;text-decoration:none;" href="/tv/tv_create">Add tv show</a></small>
+      <strong>TV SHOWS</strong>
+      <small><a  style="margin-left:100px;color:white;text-decoration:none;" class="add" href="/tv/add_tv">Add episodes to tv shows</a></small>
+  </p>
 
    <div class="row">
        {%for i in tv%}
           <img class="tv_poster" src="{{i.tv_poster}}" onclick="mouseover({{forloop.counter}});"/>
             <div class="tv_info"  id="{{forloop.counter}}" style="display:none;">
-                <img src="{{i.tv_poster}}" style="height:500px;width:400px; margin:0px;border-radius:20px;" onclick="mouseover({{forloop.counter}});"/>
+                <img src="{{i.tv_poster}}" style="height:600px;width:450px; margin:0px;border-radius:20px;" onclick="mouseover({{forloop.counter}});"/>
                 <div class="tv_content"  onclick="mouseover({{forloop.counter}});">
 
                     <a href="{{i.get_absolute_url}}" id="tv_name">{{i.tv_name}}</a>
-                    <p style="font-size:20px;">{{i.tv_category}}</p>
-                    <p style="font-size:20px;">Rate: {{i.tv_rate}} </p>
-                    <p style="font-size:20px;">Seasons: {{i.seasons_number}} | Episodes: {{i.episodes.all|length}}</p>
+                    <p style="font-size:20px;">Genre:{{i.tv_category}}</p>
+                    <p style="font-size:20px;">Rating: {{i.tv_rate}} </p>
+                    <p style="font-size:20px;">{{i.seasons_number}} season | {{i.episodes.all|length}} episode</p>
                     <p id="see_notes" style="display:none;">{{i.notes}}</p>
                     <p style="font-size:20px;">Duration:{{i.tv_duration}}</p>
                     <br>

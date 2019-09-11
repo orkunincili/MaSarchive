@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>{{tvD.tv_name}}</title>
      <link rel="stylesheet" href="{% static 'css/movie_detail.css'%}">
     <style>
          body{
@@ -24,6 +24,7 @@
 
            height:126px;
            width:224px;
+           background-size: 224px 126px;
            float:left;
            margin-left:25px;
            margin-top:10px;
@@ -63,13 +64,17 @@
 
                   <div id="movie_category">{{tvD.category}}</div>
                   <p style="color:white;">{{tvD.duration}}</p>
-                  <p class="movie_summary">{{tvD.summary}}
-                      <a class="movie_imdb_page" href="{{tvD.imdb_page}}">See more...</a>
+                  <p class="movie_summary">{{tvD.tv_summary}}
+                      <a class="movie_imdb_page" href="{{tvD.imdb_page}}" target="_blank">See more...</a>
                   </p>
                    {%for i in season%}
                       <button class="dropbtn" onclick="show({{i}});">Season {{i}}</button>
                    {%endfor%}
+
+
+
                </div>
+
                <div class="row">
                {%for i in season%}
                   <div class="movie_detail_content" id="{{i}}" style="display:none; margin-bottom:50px;" >

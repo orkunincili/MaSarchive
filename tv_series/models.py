@@ -1,6 +1,7 @@
 from django.db import models
 
 from django.urls import reverse
+
 # Create your models here.
 
 class Tv_Series(models.Model):
@@ -11,7 +12,7 @@ class Tv_Series(models.Model):
     tv_poster=models.CharField(max_length=200,blank=True)
     tv_duration=models.CharField(max_length=10,blank=True)
     imdb_page=models.CharField(max_length=200,blank=True)
-
+    tv_summary=models.TextField(blank=True)
     seasons_number=models.IntegerField(blank=True)
 
 
@@ -31,7 +32,7 @@ class Tv_Series(models.Model):
 
 
     class Meta:
-        ordering = ['id']
+        ordering = ['-id']
 
 
 
@@ -56,7 +57,7 @@ class Tv(models.Model):
     tv_rate=models.CharField(max_length=7,blank=True)
     imdb_page=models.CharField(max_length=100,blank=True)
     duration=models.CharField(max_length=10,blank=True)
-    summary=models.TextField(blank=True)
+    episode_summary=models.TextField(blank=True)
     season=models.IntegerField(blank=True)
 
     def __str__(self):

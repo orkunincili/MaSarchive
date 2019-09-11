@@ -1,19 +1,53 @@
+{%load static%}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{{episode.episode_name}}({{episode.season_episode}})</title>
+    <title>{{tv}}{{episode.season_episode}}</title>
+
     <style>
         body{
           background:black;
+          margin:0px;
 
         }
+        .header {
+          overflow: hidden;
+
+          padding: 20px 10px;
+
+        }
+
+
+        .header a {
+          float: left;
+          color: white;
+          text-align: center;
+          padding: 12px;
+          text-decoration: none;
+          font-size: 18px;
+          line-height: 25px;
+          position: relative;
+
+
+        }
+
+
+
+
+
+
+
+        .header-right {
+          float: right;
+        }
+
         .text{
           color:white;
           text-align:center;
 
         }
-        h1{margin-top:160px;font-size:40px;}
+        h1{font-size:40px;}
         h3{font-size:30px;}
         h3:hover{font-size:35px;}
         h4{font-size:20px;}
@@ -31,7 +65,7 @@
 
         }
         .other_episodes{
-          margin-top:20px;
+
 
           position:absolute;
         }
@@ -54,6 +88,7 @@
 
            height:126px;
            width:224px;
+           background-size: 224px 126px;
            float:left;
            margin-left:25px;
            margin-top:10px;
@@ -61,24 +96,70 @@
 
 
         }
+         .orkun{
+
+           width:1299px;
+           height:700px;
+           background-size: 1299px 700px;
+           -webkit-box-shadow: inset 0px -111px 79px 0px rgba(0,0,0,0.90);
+           -moz-box-shadow: inset 0px -111px 79px 0px rgba(0,0,0,0.90);
+           box-shadow: inset 0px -111px 79px 0px rgba(0,0,0,0.90);
+
+        }
+        .container{
+             padding:10px;
+
+             width:1280px;
+             height:800px;
+             background-color:rgba(0,0,0,0.70);
+
+        }
 
 
     </style>
 </head>
 <body>
-<h1 class="text">You watched <span style="color:#ee5253">{{tv}}</span><span>{{episode.episode_name}} ({{episode.season_episode}})</span></h1>
-     <h3 class="text">Would you like to write something about this episode?</h3>
-     <h4 class="text">or</h4>
-     <a href="{{tv.get_absolute_url}}"><h3 class="text">You can watch another episodes.</h3></a>
-     <div id="episode_content">
-         <img src="{{episode.poster}}" style="height:136px;width:234px"/>
-         <div  class="episode_detail">
-             <p>{{episode.episode_name}}&nbsp;{{episode.season_episode}}</p>
-             <p>{{episode.tv_rate}}</p>
-             <p>{{episode.summary}}<a href="{{episode.imdb_page}}" style="color:#feca57;">IMDb...</a></p>
-         </div>
-     </div>
-    <div class="other_episodes">
+
+<div class="orkun" style="background-image:url({{episode.poster}});">
+  <div class="container">
+      {%for user in user%}
+    <div class="header">
+      <a href="http://127.0.0.1:8000" class="logo">{{user.user_name}}</a>
+
+      <div class="header-right">
+          <a class="active" href="http://127.0.0.1:8000">Home</a>
+          <a  href="/movie/movies">Movies</a>
+          <a href="/tv/tv_index">Tv-Series</a>
+          <a  href="/book/book_index">Books</a>
+
+      </div>
+
+    </div>
+{%endfor%}
+      {%if episode.tv_path%}
+        <h1 class="text">You watched <span style="color:#ee5253;">{{tv}}</span><span>{{episode.episode_name}} ({{episode.season_episode}})</span></h1>
+             <h3 class="text">Would you like to write something about this episode?</h3>
+             <h4 class="text">or</h4>
+             <a href="{{tv.get_absolute_url}}"><h3 class="text">You can watch another episodes.</h3></a>
+      {%else%}
+        <h1 class="text">
+            <span style="color:#ee5253;">{{tv}}</span>
+            <span>{{episode.episode_name}} ({{episode.season_episode}})</span>
+            is not on your computer.
+        </h1>
+
+
+      {%endif%}
+             <div id="episode_content">
+
+                 <div  class="episode_detail">
+                     <p>{{episode.episode_name}}&nbsp;{{episode.season_episode}}</p>
+                     <p>{{episode.tv_rate}}</p>
+                     <span src="{%static 'star.svg'%}" style="height:12px;"></span>
+                     <p>{{episode.episode_summary}}<a href="{{episode.imdb_page}}" target="_blank" style="color:#feca57;">IMDb...</a></p>
+                 </div>
+             </div>
+       <div class="other_episodes">
         <p style="font-size:25px;color:white;margin-left:25px;">other episodes of season {{episode.season}}</p>
         {%for i in tv.episodes.all%}
 
@@ -93,5 +174,8 @@
            {%endifequal%}
         {%endfor%}
     </div>
+  </div>
+</div>
+
 </body>
 </html>

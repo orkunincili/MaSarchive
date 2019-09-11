@@ -5,7 +5,199 @@
     <meta charset="UTF-8">
     <title>Home</title>
     <link rel="stylesheet" href="{% static 'css/home.css'%}">
+
+    <style>
+        .random_ep_bckgrnd{
+             width:100%;
+             height:650px;
+             background-size: 100% 650px;
+             background-image:url({{random_tv_ep.poster}});
+             -webkit-box-shadow: inset 0px -106px 10px -70px rgba(8,8,8,1);
+            -moz-box-shadow: inset 0px -106px 10px -70px rgba(8,8,8,1);
+            box-shadow: inset 0px -106px 10px -70px rgba(8,8,8,1);
+
+
+        }
+        .random_ep_content{
+
+            width:100%;
+            height:550px;
+            padding-top:50px;
+
+
+
+
+        }
+        #random_tv_name{
+              font-size:55px;
+              color:white;
+
+              margin-left:100px;
+         }
+         p{
+             font-size:20px;
+             color:white;
+             margin-left:120px;
+         }
+         .random_tv_poster{
+           float:right;
+           height:350px;
+           width:250px;
+           margin-right:60px;
+           -webkit-box-shadow: 0px 0px 22px 12px rgba(0,0,0,0.75);
+          -moz-box-shadow: 0px 0px 22px 12px rgba(0,0,0,0.75);
+           box-shadow: 0px 0px 22px 12px rgba(0,0,0,0.75);
+
+         }
+         .tv_poster{
+             border:1px solid white;
+             float:right;
+             margin-top:100px;
+             margin-right:100px;
+             height:280px;
+             width:200px;
+             -webkit-box-shadow: 72px 19px 44px 12px rgba(0,0,0,0.75);
+             -moz-box-shadow: 72px 19px 44px 12px rgba(0,0,0,0.75);
+             box-shadow: 72px 19px 44px 12px rgba(0,0,0,0.75);
+             transition: width 2s, height 2s;
+
+         }
+         .tv_poster:hover{
+             height:300px;
+             width:220px;
+
+         }
+         #tv_poster_content{
+             height:0px;
+             width:200px;
+         }
+
+         .go_page{
+            border:1px solid white;
+            padding:10px;
+            color:white;
+
+         }
+         #random_movie_poster{
+            margin-left:50px;
+            height:550px;
+            width:400px;
+            -webkit-box-shadow: 110px 25px 5px 0px rgb(0,0,0,0.75);
+            -moz-box-shadow: 110px 25px 5px 0px rgb(0,0,0,0.75);
+            box-shadow: 110px 25px 5px 0px rgb(0,0,0);
+         }
+         h1{
+           color:white;
+           text-align:center;
+           font-size:60px;
+
+
+         }
+         .random_movie{
+           margin-top:250px;
+
+
+
+         }
+         #random_movie_content{
+           float:right;
+           width:60%;
+           margin-right:60px;
+           color:white;
+           font-size:25px;
+
+           text-align:left;
+
+         }
+         .button{
+             margin-left:120px;
+             width:30%;
+         }
+         .play_button{
+           border:1px solid white;
+           width:100%;
+           background-color:rgba(32,32,32);
+           color:white;
+           height:40px;
+           font-size:30px;
+           border-radius:20px;
+         }
+          .header_home {
+          overflow: hidden;
+          background-color:rgba(32,32,32,0);
+
+
+
+        }
+
+
+        .header_home a {
+          float: left;
+          color: white;
+          text-align: center;
+          padding: 12px;
+          text-decoration: none;
+          font-size: 18px;
+          line-height: 25px;
+          position: relative;
+
+
+        }
+        .book_index_container{
+          font-family:monospace;
+          float: left;
+          width: 20%;
+          margin-left:100px;
+          height:350px;
+
+
+
+          margin-bottom:100px;
+          background-color:#b33939;
+
+
+
+         }
+         h2{
+           margin-left:20px;
+           margin-top:50px;
+           color:white;
+
+         }
+
+        .reading{
+           background: rgba(0,0,0,0.8);
+          height: 200px;
+          margin-left:-200px;
+          -ms-transform: skewX(-30deg); /* IE 9 */
+          -webkit-transform: skewX(-30deg); /* Safari */
+          transform: skewX(-30deg); /* Standard syntax */
+          position: relative;
+
+
+
+        }
+
+        #first{
+           width: 1000px;
+        }
+        h4{
+          font-size:30px;
+          padding-top:20px;
+        }
+
+        h4{
+         color:white;
+         text-align:center;
+        }
+
+
+
+    </style>
+
+
 </head>
+
 <body>
 {%if not setting%}
   <div class="if_not_setting">
@@ -16,46 +208,80 @@
   </a>
 {%endif%}
 {%for setting in setting%}
-  <div class="header">
-  <a class="logo">{{setting.user_name}}</a>
-  <div class="header-right">
-
-      <a href="/user_settings"><img src="/static/settings.svg" style="width:30px;"></a>
-  </div>
-</div>
 
 
-     {%ifequal setting.select_movie 'E'%}
-          <a href="movie/movie_index">
-              <div class="cat" id="movies">
-                     <h1 class=cat_h1 id="movie_name">{{setting.movie}}</h1>
-                     <h3 class="cat_h3">{{movies}} movie</h3>
-              </div>
-          </a>
-     {%endifequal%}
-     {%ifequal setting.select_movie 'E'%}
-          <a href="tv/tv_index">
-              <div class="cat" id="tv">
-                     <h1 class=cat_h1 id="tv_name">{{setting.tv_series}}</h1>
-                     <h3 class="cat_h3">{{tv_series}} tv series</h3>
-              </div>
-          </a>
-     {%endifequal%}
-     {%ifequal setting.select_movie 'E'%}
-          <a href="blog/blog_index">
-             <div class="cat" id="blog">
-                <h1 class="cat_h1" id="blog_name">{{setting.blog}}</h1>
+
+     {%ifequal setting.select_tv 'E'%}
+         <div class="random_ep_bckgrnd">
+              <div class="header_home">
+                   <a href="http://127.0.0.1:8000" >{{setting.user_name}}</a>
+                     <div class="header-right">
+                      <a class="active" href="http://127.0.0.1:8000">Home</a>
+                      <a  href="/movie/movies">Movies</a>
+                      <a href="/tv/tv_index">Tv Shows</a>
+                      <a  href="/book/book_index">Books</a>
+                     </div>
+                 </div>
+             <div class="random_ep_content">
+                 <img class="random_tv_poster" src="{{random_tv.tv_poster}}"/>
+                 <span id="random_tv_name">{{random_tv.tv_name}}</span>
+
+                 <p>{{random_tv.tv_category}}<strong style="margin-left:20px;">{{random_tv.tv_rate}}</strong></p>
+                 <p>{{random_tv.tv_summary}}</p><br>
+                 <p>
+                     <a class="go_page" href="/tv/{{random_tv.id}}">Go tv page</a>
+                     <a class="go_page" style="margin-left:10px;" href="/tv/watch/{{random_tv.id}}/{{random_tv_ep.id}}">
+                         Watch this episode ({{random_tv_ep.season_episode}})
+                     </a>
+                 </p>
+
+                 {%for tv in tv_series%}
+                       <div>
+                           <a href="/tv/{{tv.id}}"><img class="tv_poster" src="{{tv.tv_poster}}" style="display:none;"/></a>
+
+                       </div>
+
+                 {%endfor%}
              </div>
-          </a>
+
+
+         </div>
+
      {%endifequal%}
      {%ifequal setting.select_movie 'E'%}
-          <a href="book/book_index">
-            <div class="cat" id="books">
-                  <h1 class="cat_h1" id="book_name">{{setting.book}}</h1>
-                  <h3 class="cat_h3" >{{books}} book</h3>
-            </div>
-          </a>
+         <div class="random_movie">
+             <a href="/movie/movies"><h2 style="font-family:Comic Sans MS, cursive, sans-serif;">see your all movies...</h2></a>
+             <img id="random_movie_poster" src="{{random_movie.poster}}">
+             <div id="random_movie_content">
+               <p style="font-size:50px;">{{random_movie.movie_name}}</p>
+               <p>{{random_movie.category}}</p>
+               <p>{{random_movie.summary}}<a href="{{random_movie.imdb_page}}" style="color:#f6b93b;">IMDb...</a></p><br>
+               <p><a class="go_page" href="/movie/{{random_movie.id}}">Go movie page</a></p><br>
+               <p>Notes:</p>
+               <p>{{random_movie.notes}}</p>
+             </div>
+
+         </div>
+
      {%endifequal%}
-{%endfor%}
+      {%ifequal setting.select_book 'E'%}
+        <h2>Continue reading</h2>
+        {%for i in books%}
+         <div class="reading" id="first">
+            <a href="/book/{{i.id}}"><h4>{{i.book_name}}</h4></a>
+            <h4>{{i.author_name}}</h4>
+
+        </div>
+
+
+        {%endfor%}
+
+     {%endifequal%}
+
+     {%ifequal setting.select_blog 'E'%}
+
+     {%endifequal%}
+   {%endfor%}
+<script src="{% static 'js/home.js' %}"></script>
 </body>
 </html>

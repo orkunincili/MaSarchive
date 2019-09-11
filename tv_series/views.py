@@ -15,11 +15,50 @@ import subprocess
 def tv_index(request):
     tv=Tv_Series.objects.all()
     user=User.objects.all()
+    tv_rate=[]
+    sorted_list = list(Tv_Series.objects.all())
+
+    if request.POST.get("sort by rating")=="sort by rating":
+        for i in range(len(sorted_list)):
+             for j in range(0, len(sorted_list) - i - 1):
+                    if float(sorted_list[j].tv_rate) > float(sorted_list[j + 1].tv_rate):
+                        sorted_list[j], sorted_list[j + 1] = sorted_list[j + 1], sorted_list[j]
+        sorted_list.reverse()
+        context = {
+
+            "tv": sorted_list,
+            "user": user,
+            "tv_rate": tv_rate,
+
+        }
+
+        return render(request, "tv_series/tv_index.html", context)
+
+    if request.POST.get("sort by seasons") == "sort by seasons":
+        for i in range(len(sorted_list)):
+            for j in range(0, len(sorted_list) - i - 1):
+                    if float(sorted_list[j].seasons_number) > float(sorted_list[j + 1].seasons_number):
+                        sorted_list[j], sorted_list[j + 1] = sorted_list[j + 1], sorted_list[j]
+        sorted_list.reverse()
+
+
+        context = {
+
+            "tv": sorted_list,
+            "user": user,
+            "tv_rate": tv_rate,
+
+        }
+
+        return render(request, "tv_series/tv_index.html", context)
+
+
 
     context={
-        "tv":tv,
-        "user":user,
 
+          "tv":tv,
+          "user":user,
+          "tv_rate":tv_rate,
 
 
     }
@@ -78,11 +117,11 @@ def tv_create(request):
                     tv_category_text += category.text + " "
                 seasons = source.find("div", attrs={"class": "seasons-and-year-nav"}).find("a")
                 seasons_number=int(seasons.text)
-                summary=source.find("div",attrs={"class":"summary_text"}).text
+                tv_summary=source.find("div",attrs={"class":"summary_text"}).text
                 tv_serie=Tv_Series.objects.create(tv_name=tv_name, tv_poster=tv_poster,
                                      imdb_page=imdb + tv_page,
                                      tv_rate=tv_rate, tv_category=tv_category_text, tv_duration=duration,
-                                     seasons_number=seasons_number,summary=summary)
+                                     seasons_number=seasons_number,tv_summary=tv_summary)
 
 
                 for s in range(1, int(seasons.text) + 1):
@@ -92,19 +131,29 @@ def tv_create(request):
 
                     for i in ep_name:
 
-                        try:
-                            if i.find("strong").find("a").get("title") != None:
+
+                            try:
                                 episode_name = i.find("strong").find("a").get("title")
                                 episode = i.find("div", attrs={"class": ""}).text
                                 episode_poster=i.find("img",attrs={"zero-z-index"}).get("src")
+                                new_poster_url = ""
+                                episode_poster = episode_poster.split(".")
+                                del episode_poster[-2]
+
+                                for p in episode_poster:
+                                    new_poster_url += p
+                                    if episode_poster.index(p) < len(episode_poster) - 1:
+                                        new_poster_url += "."
+
+                                episode_poster = new_poster_url
                                 tv_rate = i.find("span", attrs={"class": "ipl-rating-star__rating"}).text
-                                summary = i.find("div", attrs={"class": "item_description"}).text
+                                episode_summary = i.find("div", attrs={"class": "item_description"}).text
                                 Tv.objects.create(tv_name=tv_serie,season_episode=episode,episode_name=episode_name,
                                                   imdb_page=imdb + tv_page,
-                                                  tv_rate=tv_rate, summary=summary,season=s,poster=episode_poster)
+                                                  tv_rate=tv_rate, episode_summary=episode_summary,season=s,poster=episode_poster)
 
-                        except:
-                            pass
+                            except:
+                                pass
 
         context = {
             'form': form,
@@ -122,11 +171,6 @@ def tv_detail(request,id):
     if user[0].select_movie == 'E':
         tv = Tv_Series.objects.get(id=id)
 
-
-
-
-
-
         context = {
             "tvD": tv,
             "user": user,
@@ -140,14 +184,26 @@ def tv_detail(request,id):
         return HttpResponse("App is disable")
 
 def watch(request,id,id2):
+    user = User.objects.all()
     tv=Tv_Series.objects.get(id=id)
+    all_tvs=Tv_Series.objects.all()
     episode=tv.episodes.get(id=id2)
+    if episode.tv_path!="":
+       subprocess.call(['vlc', episode.tv_path])
 
-    subprocess.call(['vlc', episode.tv_path])
+    else:
+        context = {
+            "all":all_tvs,
+            "tv": tv,
+            "episode": episode,
+            "user": user,
 
+        }
+        return render(request, "tv_series/watch.html", context)
     context={
        "tv":tv,
        "episode":episode,
+       "user": user,
 
 
     }
@@ -175,30 +231,57 @@ def add_multiple_tv(request):
                 new_movie.append(i)
             new_movie2 = []
             for i in new_movie:
-                a = re.findall("s[0-9]*[0-9]+e[0-9]*[0-9]", i)
+                if len(re.findall("s[0-9]*[0-9]+e[0-9]*[0-9]", i))!=0:
+                    a = re.findall("s[0-9]*[0-9]+e[0-9]*[0-9]", i)
 
-                a[0] = a[0].replace("s", "S").replace("e", "E")
-                a = list(a[0])
-                if int(a[1]) == 0:
-                    a.remove(a[1])
-                    if int(a[3]) == 0:
-                        a.remove(a[3])
+                    a[0] = a[0].replace("s", "S").replace("e", "E")
+                    a = list(a[0])
+                    if int(a[1]) == 0:
+                        a.remove(a[1])
+                        if int(a[3]) == 0:
+                            a.remove(a[3])
+                    else:
+
+                        if int(a[a.index("E") + 1]) == 0 and (a.index("E") + 1) == len(a) - 2:
+                            a.remove(a[a.index("E") + 1])
+
+                    a.insert(a.index("E"), ",")
+                    a.insert(a.index("E") + 1, "p")
+                    a.insert(a.index(",") + 1, " ")
+                    a.insert(0, "\n\n")
+                    a.insert(len(a) + 1, "\n")
+
+                    episode = ""
+                    for i in a:
+                        episode += i
+
+                    new_movie2.append(episode)
                 else:
 
-                    if int(a[a.index("E") + 1]) == 0 and (a.index("E") + 1) == len(a) - 2:
-                        a.remove(a[a.index("E") + 1])
+                    season = re.findall("n[0-9]*[0-9]", i)
+                    episode = re.findall("e[0-9]*[0-9]", i)
+                    season[0] = season[0].replace("n", "S")
+                    episode[0] = episode[0].replace("e", "E")
 
-                a.insert(a.index("E"), ",")
-                a.insert(a.index("E") + 1, "p")
-                a.insert(a.index(",") + 1, " ")
-                a.insert(0, "\n\n")
-                a.insert(len(a) + 1, "\n")
+                    season = list(season[0])
+                    episode = list(episode[0])
+                    if int(season[1]) == 0:
+                        season.remove(season[1])
 
-                episode = ""
-                for i in a:
-                    episode += i
+                    if int(episode[episode.index("E") + 1]) == 0 and (episode.index("E") + 1) == len(episode) - 2:
+                        episode.remove(episode[episode.index("E") + 1])
 
-                new_movie2.append(episode)
+                    episode.insert(episode.index("E"), ",")
+                    episode.insert(episode.index("E") + 1, "p")
+                    episode.insert(episode.index(",") + 1, " ")
+                    season.insert(0, "\n\n")
+                    episode.insert(len(episode) + 1, "\n")
+
+                    season_episode = ""
+                    for i in season+episode:
+                        season_episode += i
+
+                    new_movie2.append(season_episode)
 
             for i in range(len(new_movie2)):
                  tv_name=which_tv.tv_name

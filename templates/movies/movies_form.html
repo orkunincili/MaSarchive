@@ -3,17 +3,72 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Add Movies</title>
-     <link rel="stylesheet" href="{% static 'css/movie_form.css'%}">
+    <title>Add Movie</title>
+
      <link rel="stylesheet" href="{% static 'css/home.css'%}">
      <style>
-         body{
-          background-image:url({{movie.poster}});
+        body{background-color:rgb(8,8,8);}
+        .container{
+           background-color:rgb(8,8,8,0);
+           height:400px;
+           width:30%;
+           margin:auto;
+           margin-top:100px;
 
-          background-size: 1300px;
-       }
 
-   </style>
+
+
+        }
+
+
+        #id_movie_name{
+            color:white;
+            background-color:rgb(8,8,8);
+            border:1px solid orange;
+            font-size:30px;
+            width:100%;
+
+        }
+         #id_movie_path{
+            color:white;
+            background-color:rgb(8,8,8);
+            border:1px solid yellow;
+            font-size:25px;
+            width:100%;
+
+        }
+        #id_watch{
+            color:grey;
+            background-color:rgb(8,8,8);
+            border:1px solid pink;
+            font-size:25px;
+            width:100%;
+
+        }
+        #id_favorite_movie{
+            color:grey;
+            background-color:rgb(8,8,8);
+            border:1px solid blue;
+            font-size:25px;
+            width:100%;
+
+        }
+        #add{
+          background-color:rgb(8,8,8,0);
+          color:white;
+          width:100%;
+          border:0;
+          font-size:30px;
+        }
+
+        .title{
+          margin-left:-110px;
+          margin-top:-20px;
+          color:white;
+          font-size:100px;
+
+        }
+  </style>
 
 </head>
 <body>
@@ -22,33 +77,30 @@
       <a href="#default" class="logo">{{user.user_name}}</a>
       <div class="header-right">
           <a class="active" href="http://127.0.0.1:8000">Home</a>
-          <a  href="/movie/movie_index">Movies</a>
+          <a  href="/movie/movies">Movies</a>
+          <a  href="/tv/tv_index">Tv shows</a>
           <a  href="/book/book_index">Books</a>
       </div>
     </div>
 {%endfor%}
+   <div class="container">
 
-       <form method="POST" enctype="multipart/form-data">
-                    {% csrf_token %}
-           <div class="movie_index_container">
-            {%if not movie.poster%}
-               <p class="if_not_poster">Poster will appear here</p>
-            {%endif%}
-               <img id="movie_poster" src="{{movie.poster}}"/>
-           <div class="movie_form_content" >
-               <h2 id="movie_name">Movie Name:{{form.movie_name}}</h2>
-               <h4 id="movie_watch">Did you watch?{{form.watch}}</h4>
-               <h5 id="movie_favorite">Add favorites?{{form.favorite_movie}}</h5>
-               <h6 id="movie_path">/path/to/movie:{{form.movie_path}}</h6>
-               <p class="movie_note_title">Notlar:</p>
-               <p class="movie_note">{{form.notes}}</p>
+      <span class="title">Movie</span>
 
-           </div>
+      <form method="POST">
+        {% csrf_token %}
 
-       </div>
+          <p>{{form.movie_name}}</p>
+          <p>{{form.movie_path}}</p>
+          <p>{{form.watch}}</p>
+          <p>{{form.favorite_movie}}</p>
 
-             <input  id="movie_form_button" type="submit" value="Add Movie">
-         </form>
+        <input id="add" type="submit" value="Add now!"/>
+       </form>
+
+   </div>
+
+
 
 </body>
 </html>

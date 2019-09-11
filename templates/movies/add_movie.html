@@ -5,6 +5,62 @@
     <meta charset="UTF-8">
     <title>Add Multiple Movie</title>
     <link rel="stylesheet" href="{% static 'css/home.css'%}">
+     <style>
+        body{background-color:rgb(8,8,8);}
+        .container{
+           background-color:rgb(8,8,8,0);
+           height:400px;
+           width:30%;
+           margin:auto;
+           margin-top:100px;
+
+
+
+
+        }
+         #id_path{
+            color:white;
+            background-color:rgb(8,8,8);
+            border:1px solid yellow;
+            font-size:30px;
+            width:100%;
+         }
+
+        #add{
+          background-color:rgb(8,8,8,0);
+          color:white;
+          width:100%;
+          border:0;
+          font-size:30px;
+        }
+
+        .title{
+          margin-left:-110px;
+          margin-top:-20px;
+          color:white;
+          font-size:65px;
+
+        }
+        form{
+            margin-left:90px;
+        }
+        .filter{
+
+           border: solid grey;
+           border-width:0px 0px 1px 0px;
+           width:17%;
+           background-color:rgb(8,8,8,0);
+           color:white;
+           height:40px;
+           font-size:20px;
+
+        }
+        .header{
+            background-color:rgb(8,8,8,0);
+
+        }
+
+     </style>
 
 </head>
 <body>
@@ -13,18 +69,26 @@
       <a  class="logo">{{user.user_name}}</a>
       <div class="header-right">
           <a class="active" href="http://127.0.0.1:8000">Home</a>
-          <a  href="/movie/movie_index">Movies</a>
+          <a  href="/movie/movies">Movies</a>
+          <a  href="/tv/tv_index">Tv shows</a>
           <a  href="/book/book_index">Books</a>
       </div>
     </div>
 {%endfor%}
-
-       <form method="POST" enctype="multipart/form-data">
-                    {% csrf_token %}
-            <p id="path">{{form}}</p>
-
-             <input type="submit" value="Add Movies">
-         </form>
-<script src="{% static 'js/movies.js' %}"></script>
+       <form method="POST">
+         {% csrf_token %}
+           <input class="filter" type="submit" name="top250" value="top250"/>
+           <input class="filter" type="submit" name="best 50 action movies" value="best 50 action movies"/>
+           <input class="filter" type="submit" name="best 50 comedy movies" value="best 50 comedy movies"/>
+           <input class="filter" type="submit" name="best 50 horror movies" value="best 50 horror movies"/>
+     </form>
+      <div class="container">
+          <span class="title">Add Multiple Movie</span>
+          <form method="POST" enctype="multipart/form-data">
+              {% csrf_token %}
+              <p>{{form.path}}</p>
+              <input id="add" type="submit" value="Add Movies">
+           </form>
+      </div>
 </body>
 </html>

@@ -18,8 +18,8 @@
 
       <div class="header-right">
           <a class="active" href="http://127.0.0.1:8000">Home</a>
-          <a  href="/movie/movie_index">Movies</a>
-          <a href="/tv/tv_index">Tv-Series</a>
+          <a  href="/movie/movies">Movies</a>
+          <a href="/tv/tv_index">Tv shows</a>
           <a  href="/book/book_index">Books</a>
 
       </div>
@@ -36,11 +36,13 @@
 
   <form method="POST">
          {% csrf_token %}
+
          <input class="filter" type="submit" name="allmovies" value="all movies"/>
          <input class="filter" type="submit" name="watched" value="watched"/>
          <input class="filter" type="submit" name="not watched" value="not watched"/>
          <input class="filter" type="submit" name="favorites" value="favorites"/>
          <input class="filter" type="submit" name="sort by rating" value="sort by rating"/>
+
      </form>
   <p id="page_title">
       <small><a style="margin-right:30px;color:white;" href="/movie/movie_create">Add Movie</a></small>
@@ -49,46 +51,44 @@
 
   </p>
 
-
-
   <div class="row">
 
       {%for i in movies%}
 
          <img class="movie_poster" src="{{i.poster}}" onclick="mouseover({{forloop.counter}});"/>
          <div class="movie_info"  id="{{forloop.counter}}" style="display:none;">
-             <div class="movie_content" style=" background-image:url({{i.poster}});" onclick="mouseover({{forloop.counter}});">
+             <img style="height:600px;width:30%;margin-left:20px;" src="{{i.poster}}" onclick="mouseover({{forloop.counter}});"/>
+             <div class="movie_content" onclick="mouseover({{forloop.counter}});">
 
-                 <a href="{{i.get_absolute_url}}" id="movie_name">{{i.movie_name}}</a>
-                 <p class="content">Category: {{i.category}}</p>
-                 <span class="content">Rate:  {{i.movie_rate}} | </span>
-                 <span class="content">Duration: {{i.duration}}   </span>
+                 <p><a href="{{i.get_absolute_url}}" id="movie_name">{{i.movie_name}}</a></p>
+                 <span class="content" style="color:#e1b12c;">Genre:</span>
+                 <span class="content"> {{i.category}} | </span>
+                 <span class="content" style="color:#e1b12c;"> Rating:</span>
+                 <span class="content">{{i.movie_rate}} | </span>
+                 <span class="content" style="color:#e1b12c;">Duration:</span>
+                 <span class="content">{{i.duration}}</span>
                  <p class="content">{{i.summary}}</p>
-                 <p classs="content">Notes:</p>
-                 {%if not i.notes%}
-                     <p>you have no notes yet.<a href="{{i.get_update_url}}" class="edit">Add note...</a></p>
-                 {%else%}
-                 <p style="font-size:19px;">{{i.notes|truncatechars:1500}}<a href="{{i.get_update_url}}" class="edit">See more...</a></p>
-                 {%endif%}
+                 <a id="trailer" href="{{i.movie_trailer}}" target="_blank">Watch trailer</a>
+
+
+
 
              </div>
-
          </div>
       {%endfor%}
-
   </div>
   <div class="pagination">
                 <span class="step-links">
-                    {% if movieW.has_previous %}
-                        <a href="?page={{ movieW.previous_page_number }}" class="pagination_button"><<<</a>
+                    {% if movies.has_previous %}
+                        <a href="?page={{ movies.previous_page_number }}" class="pagination_button"><<<</a>
                     {% endif %}
 
                     <span class="current">
-                        Page {{ movieW.number }} of {{ movieW.paginator.num_pages }}.
+                        Page {{ movies.number }} of {{ movies.paginator.num_pages }}.
                     </span>
 
-                    {% if movieW.has_next %}
-                        <a href="?page={{ movieW.next_page_number }}" class="pagination_button">>>></a>
+                    {% if movies.has_next %}
+                        <a href="?page={{ movies.next_page_number }}" class="pagination_button">>>></a>
                     {% endif %}
                 </span>
             </div>

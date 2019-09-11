@@ -6,13 +6,64 @@
     <title>{{movieD.movie_name}}</title>
      <link rel="stylesheet" href="{% static 'css/movie_detail.css'%}">
      <link rel="stylesheet" href="{% static 'css/home.css'%}">
+
+
+
+
 </head>
+   <script>
+        function summary_form(){
+             summary=document.getElementsByClassName("movie_summary");
+             if(summary[0].style.display==="inline"){
+
+                summary[0].style.display="none";
+                summary[1].style.display="";
+             }
+             else{
+                summary[0].style.display="";
+                summary[1].style.display="none";
+
+
+             }
+        }
+        function others(){
+             if(document.getElementById("others").style.display==="none"){
+                 document.getElementById("others").style.display="";
+
+             }
+             else{
+                 document.getElementById("others").style.display="none";
+             }
+        }
+   </script>
    <style>
        body{
-          background-image:url({{movieD.poster}});
+          background-image:url(/static/images/movie_poster/{{movieD.poster}});
 
-          background-size: 1500px;
+          background-size: 1299px;
        }
+       #id_summary{
+         color:#c0392b;
+         font-family:fantasy;
+         background-color:rgba(0,0,0,0);
+         border:1px solid orange;
+         width:99%;
+         font-size:15px;
+        }
+        .movie_form_button{
+               border:0px;
+               width:100%;
+               background-color:rgb(0,0,0,0);
+               color:white;
+               font-size:20px;
+               border:1px solid orange;
+
+
+        }
+        #id_watch{background-color:rgb(0,0,0);border:1px solid yellow;color:white;height:30px;}
+        #id_movie_path{background-color:rgb(0,0,0);border:1px solid yellow;color:white;width:45%;height:30px;}
+        #id_favorite_movie{background-color:rgb(0,0,0);border:1px solid yellow;color:white;height:30px;}
+
 
    </style>
 <body>
@@ -20,15 +71,19 @@
     <div class="header" style=" opacity:0.6;">
       <a href="#default" class="logo">{{user.user_name}}</a>
       <div class="header-right">
-        <a class="active" href="http://127.0.0.1:8000">Home</a>
+          <a class="active" href="http://127.0.0.1:8000">Home</a>
+          <a href="/movie/movies">Movies</a>
+          <a href="/tv/tv_index">Tv shows</a>
+          <a href="/book/book_index">Books</a>
       </div>
     </div>
 {%endfor%}
 
-
+       <form method="POST" enctype="multipart/form-data">
+           {% csrf_token %}
 
           <div id="movie_detail_container">
-               <img id="movie_poster" src="{{movieD.poster}}"/>
+               <img id="movie_poster" src="/static/images/movie_poster/{{movieD.poster}}"/>
 
 
 
@@ -43,12 +98,22 @@
 
 
 
+
                   <div id="movie_date">Added {{movieD.date|timesince}} ago</div>
 
                   <div id="movie_category">{{movieD.category}}</div>
-                  <p style="color:white;">{{movieD.duration}}</p>
-                  <p class="movie_summary">{{movieD.summary}}
-                      <a class="movie_imdb_page" href="{{movieD.imdb_page}}">See more...</a>
+                  <div>
+                     <a id="trailer" href="{{i.movie_trailer}}" target="_blank">Watch trailer</a>
+                     <p style="color:white;">{{movieD.duration}}</p>
+                  </div>
+
+
+                  <span class="movie_summary" onclick="summary_form();" style="display:inline;">{{movieD.summary}}</span>
+                  <a class="movie_imdb_page" href="{{movieD.imdb_page}}" target="_blank">See more...</a>
+
+                  <p class="movie_summary" style="display:none;">
+                      {{form.summary}}
+                      <input  class="movie_form_button" type="submit" value="edit">
                   </p>
                   {%if movieD.movie_path%}
                       <div class="button">
@@ -58,17 +123,32 @@
                           </form>
                       </div>
                   {%endif%}
+                  <p style="color:white;font-size:20px;" onclick="others();">Others</p>
+
+                  <div id="others" style="display:none;">
+                      {{form.watch}}
+                      {{form.favorite_movie}}
+                      {{form.movie_path}}
+                      <input  class="movie_form_button" type="submit" value="edit">
+
+                  </div>
+
+
 
 
               </div>
               <div id="movie_detail_content" >
-                  <p style="color:white; font-size:25px; text-align:center;">Notes</p>
+                  <p onclick="note_form();" style="color:white; font-size:25px; text-align:center;">Notes</p>
 
-                  <p id="movie_notes">{{movieD.notes}}</p>
+                  <p id="movie_notes" style="color:white;" onclick="note_form();">{{movieD.notes}}</p>
 
+                   <div id="note_form" style="display:none;border:1px solid orange;">
+                       {{form.notes}}
+                       <input  class="movie_form_button" type="submit" value="edit">
+                   </div>
+              </div>
+       </form>
 
-
-          </div>
-
+<script src="{% static 'js/movie_detail.js' %}"></script>
 </body>
 </html>

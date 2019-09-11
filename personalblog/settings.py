@@ -26,7 +26,7 @@ SECRET_KEY = 'l0uw-@8@aw$rr@1v(t7^(bgc_2fb74_@6f8m2m625@5%(4tz+u'
 DEBUG = True
 
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['192.168.1.90']
 
 
 # Application definition
@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'movie',
     'book',
     'tv_series',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -109,9 +110,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/1.10/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'tr-TR'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Istanbul'
 
 USE_I18N = True
 
