@@ -62,14 +62,20 @@ font-size:50px;
 }
 
 #movie_notes{
-
-padding-left:30px;
-font-family:monospace;
-font-size:25px;
-color:rgba(255,255,255,0.7);
-
+   width:75%;
+   margin:auto;
 
 }
+#note_form{
+
+
+font-family:monospace;
+font-size:25px;
+
+background-color:rgba(0,0,0,0);
+
+}
+
 #movie_category{
 width:60%;
 font-size:20px;
@@ -80,9 +86,17 @@ color:#e1b12c;
 .movie_summary{
   color:#c0392b;
   font-family:fantasy;
-  font-size:15px
+
 
 }
+#trailer{
+   color:white;
+   float:right;
+   margin-right:50px;
+
+}
+
+
 .movie_imdb_page{
   color:#2e86de;
   text-decoration:none;
@@ -151,6 +165,17 @@ margin-top:20px;
 }
 .tv_play_button:hover{
   background-color: #4CAF50;
+
+}
+.movie_form_button{
+
+   margin:auto;
+   border:1px solid #101010;
+   width:17%;
+   background-color:#101010;
+   color:white;
+   height:40px;
+   font-size:30px;
 
 }
 

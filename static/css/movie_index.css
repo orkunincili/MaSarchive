@@ -1,19 +1,9 @@
-body{
 
-   background-color:#202020;
-  -webkit-box-shadow: inset 0px 0px 600px 600px rgba(0,0,0,0.7);
-  -moz-box-shadow: inset 0px 0px 600px 600px rgba(0,0,0,0.7);
-  box-shadow: inset 0px 0px 600px 600px rgba(0,0,0,0.7);
 
-  margin:0px;
-
-}
-* {
-    -webkit-text-size-adjust: none;
-}
 
 .movie_info{
    color: white;
+
 
 
 }
@@ -23,40 +13,30 @@ body{
 }
 
 .movie_content{
-   padding-top:25px;
-   margin-top:50px;
-   float:left;
-   width:60%;
-   height:800px;
-   border-radius:20px;
 
-   background-size:100%;
-   -webkit-box-shadow: inset 0px 0px 600px 600px rgba(0,0,0,0.7);
-   -moz-box-shadow: inset 0px 0px 600px 600px rgba(0,0,0,0.7);
-   box-shadow: inset 0px 0px 600px 600px rgba(0,0,0,0.7);
+   float:right;
+   width:65%;
+   height:600px;
+
 
 
 }
+
 
 #movie_name{
   color:rgb(234, 32, 39);
   text-decoration:none;
-  text-shadow: 1px 1px, 1px 0px;  font-family: "Comic Sans MS", cursive, sans-serif;
-  font-size:50px;
+
+  font-family: "Comic Sans MS", cursive, sans-serif;
+  font-size:40px;
 }
 
 
 
-.add{
-  border:1px solid white;
-   width:200px;
-   height:300px;
-
-}
 
 .row{
-   margin-left:100px;
-   width-left:200%;
+
+   margin-left:20px;
 
 }
 
@@ -140,38 +120,15 @@ color:#eccc68;
 
 #page_title{
    text-align:center;
-   color:#192a56;
+   color:white;
    font-family: "Comic Sans MS", cursive, sans-serif;
-   font-size:30px;
-   margin-top:200px;
-   margin-left:50px;
-   margin-right:50px;
+   font-size:35px;
 
 
 
 }
-.page_title a{
-  text-decoration:none;
-  color:green;
-}
-.opt_link{
 
 
-  text-align:center;
-
-
-}
-.movie_update{
-   border:1px solid grey;
-   font-family:monospace;
-   text-decoration:none;
-   color:#eccc68;
-   float:left;
-   width:35%;
-   padding:15px;
-   border-width:0px 2px 0px 0px;
-   border-radius:20px;
-}
 .movie_view{
    border:1px solid grey;
    font-family:monospace;
@@ -186,70 +143,20 @@ color:#eccc68;
 
 
 }
-.movie_update:hover{
-  background-color: rgba(255, 255, 255, 0.5);
-  color: white;
-}
-.movie_view:hover{
-  background-color: rgba(255, 255, 255, 0.5);
-  color: white;
-}
-.add_movie{
-
- float:left;
- width:50%;
- text-align:center;
- font-size:50px;
 
 
-
- animation:add_move 1s;
-}
-.add_multiple_movie{
-
-
- float:right;
- width:50%;
- text-align:center;
- font-size:50px;
-
-
- animation:add_move 1s;
-
-}
-@keyframes add_move{
-   0%   {opacity:0}
-   25%  {opacity:0.25}
-   50%  {opacity:0.50}
-   75%  {opacity:0.75}
-   100% {opacity:1}
-
-}
 .movie_poster{
 
-   margin-left:10px;
-   margin-top:15px;
-   border-radius:15px;
-   border:1px solid white;
+
    width:200px;
    height:300px;
-   position:relative;
-
-
-}
-#plus{
 
 
 
 }
 
-.add{
- border:solid white;
- border-width:0 0 1px 0;
- text-decoration:none;
- color:white;
- font-family:monospace;
-}
+
+
 
 .if_not{
    text-align:center;
@@ -285,15 +192,7 @@ color:#eccc68;
 
  width:30%;
 }
-.play_button{
-   border:1px solid #009432;
-   width:100%;
-   background-color:#009432;
-   color:white;
-   height:40px;
-   font-size:30px;
-   border-radius:20px;
-}
+
 
 
 .if_path_exist{
@@ -301,21 +200,35 @@ margin-top:120px;
 color:#eccc68;
 
 }
-.button{
-   border:1px solid #b33939;
-   width:100%;
-   background-color:#b33939;
-   color:white;
-   height:40px;
-   font-size:30px;
-   border-radius:20px;
-}
+
 .edit{
   text-decoration:none;
   color:#2e86de;font-family: "Comic Sans MS", "Comic Sans", cursive;font-family: "Comic Sans MS", "Comic Sans", cursive;
 
 
 }
+
+form{
+   margin-left:90px;
+}
+.filter{
+
+   border: solid grey;
+   border-width:0px 0px 1px 0px;
+   width:17%;
+   background-color:black;
+   color:white;
+   height:40px;
+   font-size:20px;
+
+}
+#trailer{
+   border:1px solid white;
+   padding:10px;
+   color:white;
+   border-radius:25px;
+}
+
 
 
 

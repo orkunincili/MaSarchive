@@ -1,6 +1,6 @@
 body{
 
-  background-color:#202020;
+  background-color:#080808;
   margin:0px;
 
 
@@ -50,9 +50,9 @@ body{
 
   border-width:0px 0px 5px 0px;
   height:500px;
-  -moz-box-shadow: inset 0 0 200px 200px #171717;
-  -webkit-box-shadow: inset 0 0 200px 200px#171717;
-  box-shadow: inset 0 0 200px 200px#171717;
+  -webkit-box-shadow: inset 0px -107px 28px 16px rgba(0,0,0);
+  -moz-box-shadow: inset 0px -107px 28px 16px rgba(0,0,0);
+  box-shadow: inset 0px -107px 28px 16px rgba(0,0,0);
 
 }
 #tv{
@@ -103,11 +103,10 @@ a{
 
 .header {
   overflow: hidden;
-  background:#222f3e;
+  background-color:rgb(0,0,0,0);
+
   padding: 20px 10px;
-  -webkit-box-shadow: inset 0px -50px 64px 0px rgba(0,0,0,0.75);
-  -moz-box-shadow: inset 0px -50px 64px 0px rgba(0,0,0,0.75);
-  box-shadow: inset 0px -50px 64px 0px rgba(0,0,0,0.75);
+
 
 }
 
@@ -131,18 +130,6 @@ a{
   font-size: 25px;
   font-weight: bold;
   font-family:monospace
-}
-
-
-.header a:hover {
-  background-color: #ddd;
-  color: black;
-}
-
-
-.header a.active {
-  background-color:;
-  color: white;
 }
 
 
@@ -259,3 +246,15 @@ a{
 
 }
 
+#random_tv_name{
+  font-size:30px;
+  color:white;
+  margin-top:50px;
+}
+
+
+.tv_poster{
+    height:300px;
+    width:200px;
+
+}
