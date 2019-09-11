@@ -1,11 +1,12 @@
+# -*- coding: utf-8 -*-
 from django.db import models
 from django.urls import reverse
 
 # Create your models here.
 class Movie(models.Model):
     WATCH = (
-        ('W', 'Watch'),
-        ('nW', 'NotWatch'),
+        ('W', 'watched this movie.'),
+        ('nW', 'didnt watch this movie.'),
 
     )
     FAVORITE = (
@@ -17,7 +18,7 @@ class Movie(models.Model):
 
 
     movie_name = models.CharField(max_length=100)
-    notes = models.TextField(blank=True)
+    notes = models.TextField(blank=True, max_length=10)
     date = models.DateTimeField(auto_now_add=True)
     watch = models.CharField(max_length=2, choices=WATCH, default='W')
     favorite_movie = models.CharField(max_length=1, choices=FAVORITE, blank=True)
@@ -26,9 +27,9 @@ class Movie(models.Model):
     poster = models.CharField(max_length=200,blank=True)
     movie_rate=models.CharField(max_length=7,blank=True)
     imdb_page=models.CharField(max_length=100,blank=True)
-    duration=models.CharField(max_length=10,blank=True)
+    duration=models.CharField(max_length=15,blank=True)
     summary=models.TextField(blank=True)
-
+    movie_trailer=models.CharField(max_length=100,blank=True)
 
     def __str__(self):
 

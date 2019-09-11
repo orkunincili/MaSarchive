@@ -9,9 +9,9 @@ from .models import Movie
 
 
 class MovieAdmin(admin.ModelAdmin):
-    list_display = ["movie_name", "date","category"]
+    list_display = ["movie_name", "date"]
     list_filter = ["date"]
-    list_editable = ["category"]
+
 
 
 admin.site.register(Movie, MovieAdmin)
