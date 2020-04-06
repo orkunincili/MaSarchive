@@ -3,7 +3,8 @@
 
 A Django web application that allows you to add movies and tv-shows or books(in your computer), write about what you want, and make an archive.
 
-**in-app screenshots**
+
+
 <img src="screenshots/movies_page.png" width=700 heigth=400>
 <img src="screenshots/movies_page_2.png" width=700 heigth=400>
 <img src="screenshots/movie_detail_page.png" width=700 heigth=400>
