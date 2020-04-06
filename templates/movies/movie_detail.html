@@ -38,7 +38,7 @@
    </script>
    <style>
        body{
-          background-image:url(/static/images/movie_poster/{{movieD.poster}});
+          background-image:url({{movieD.poster}});
 
           background-size: 1299px;
        }
@@ -83,7 +83,7 @@
            {% csrf_token %}
 
           <div id="movie_detail_container">
-               <img id="movie_poster" src="/static/images/movie_poster/{{movieD.poster}}"/>
+               <img id="movie_poster" src="{{movieD.poster}}"/>
 
 
 
@@ -103,7 +103,7 @@
 
                   <div id="movie_category">{{movieD.category}}</div>
                   <div>
-                     <a id="trailer" href="{{i.movie_trailer}}" target="_blank">Watch trailer</a>
+
                      <p style="color:white;">{{movieD.duration}}</p>
                   </div>
 

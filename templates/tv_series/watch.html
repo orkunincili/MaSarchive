@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{{tv}}{{episode.season_episode}}</title>
+    <title>{{tv.tv_name}}{{episode.season_episode}}</title>
 
     <style>
         body{
@@ -137,13 +137,13 @@
     </div>
 {%endfor%}
       {%if episode.tv_path%}
-        <h1 class="text">You watched <span style="color:#ee5253;">{{tv}}</span><span>{{episode.episode_name}} ({{episode.season_episode}})</span></h1>
+        <h1 class="text">You watched <span style="color:#ee5253;">{{tv.tv_name}}</span><span>{{episode.episode_name}} ({{episode.season_episode}})</span></h1>
              <h3 class="text">Would you like to write something about this episode?</h3>
              <h4 class="text">or</h4>
              <a href="{{tv.get_absolute_url}}"><h3 class="text">You can watch another episodes.</h3></a>
       {%else%}
         <h1 class="text">
-            <span style="color:#ee5253;">{{tv}}</span>
+            <span style="color:#ee5253;">{{tv.tv_name}}</span>
             <span>{{episode.episode_name}} ({{episode.season_episode}})</span>
             is not on your computer.
         </h1>

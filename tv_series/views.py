@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from django.shortcuts import render,HttpResponse,HttpResponseRedirect
 from .models import Tv,Tv_Series
 from home.models import User
