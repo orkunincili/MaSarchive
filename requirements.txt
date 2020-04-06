@@ -1,5 +1,5 @@
 bs4==0.0.1
-Django==1.10
+Django==1.11.28
 djangorestframework==3.9.4
 lxml==4.5.0
 Pillow==6.2.2
