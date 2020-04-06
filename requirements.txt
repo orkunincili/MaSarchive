@@ -1,0 +1,9 @@
+Django==1.10
+djangorestframework
+python-magic
+bs4
+requests
+Pillow==2.2.2
+python-resize-image
+pytz
+lxml
