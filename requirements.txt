@@ -1,6 +1,6 @@
 bs4==0.0.1
 Django==1.10
-djangorestframework==3.9.4
+djangorestframework==3.11.2
 lxml==4.5.0
 Pillow==6.2.2
 python-magic==0.4.15
