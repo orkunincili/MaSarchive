@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     'movie',
     'book',
     'tv_series',
-    'rest_framework',
+    'account'
+
 ]
 
 MIDDLEWARE = [
@@ -73,7 +74,7 @@ TEMPLATES = [
         },
     },
 ]
-
+AUTH_USER_MODEL = 'account.Account'
 WSGI_APPLICATION = 'personalblog.wsgi.application'
 
 
@@ -128,4 +129,3 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'),]
 MEDIA_ROOT= os.path.join(BASE_DIR, 'media/')
 MEDIA_URL= "/media/"
-

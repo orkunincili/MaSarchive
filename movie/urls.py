@@ -12,7 +12,7 @@ urlpatterns = [
         url(r'^(?P<id>\d+)/movie_update/$', movie_update,name="movie_update"),
         url(r'^add_movie/$',add_multiple_movie),
         url(r'^movies/$',movies),
-        url(r'^movie_json/$', show_movie.as_view()),
+        
    ]
 
 urlpatterns+=static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
